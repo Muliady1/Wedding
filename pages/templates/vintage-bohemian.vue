@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { vintageBohemianData } from '~/composables/useData'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Feather, Star, Sunset, Bird } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Feather, Star, Sunset, Bird, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -105,6 +105,55 @@ const formatNumber = (num: number) => num.toString().padStart(2, '0')
 
 const openLightbox = (src: string) => { selectedImage.value = src; showLightbox.value = true }
 const closeLightbox = () => { showLightbox.value = false; selectedImage.value = '' }
+
+// Gallery Swipe/Carousel
+const currentSlide = ref(0)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const isDragging = ref(false)
+
+const openLightboxAtIndex = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+  showLightbox.value = true
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+}
+
+const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return
+  touchStartX.value = e.changedTouches[0].screenX
+  isDragging.value = true
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.changedTouches?.[0]) return
+  touchEndX.value = e.changedTouches[0].screenX
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return
+  const swipeThreshold = 50
+  const diff = touchStartX.value - touchEndX.value
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) nextSlide()
+    else prevSlide()
+  }
+  isDragging.value = false
+}
 
 const copyToClipboard = (text: string, index: number) => {
   navigator.clipboard.writeText(text)
