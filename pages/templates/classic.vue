@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Send, ZoomIn, MapPin, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, Instagram, Mail, MessageSquare } from 'lucide-vue-next'
+import { Send, MapPin, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, Instagram, Mail, MessageSquare } from 'lucide-vue-next'
 import { Motion, AnimatePresence } from 'motion-v'
 import { stories, galleryImages, COUPLE, eventLocations, accounts, qrCodes, attendanceOptions } from '~/composables/useData'
 
@@ -102,8 +102,62 @@ onUnmounted(() => {
 const formatNumber = (num: number) => {
   return num.toString().padStart(2, '0')
 }
+
+// Gallery Swipe/Carousel
 const selectedImage = ref('');
 const showLightbox = ref(false);
+const currentSlide = ref(0);
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+const isDragging = ref(false);
+
+const openLightboxAtIndex = (index: number) => {
+  currentSlide.value = index;
+  selectedImage.value = images.value[index] || '';
+  showLightbox.value = true;
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % images.value.length;
+  selectedImage.value = images.value[currentSlide.value] || '';
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length;
+  selectedImage.value = images.value[currentSlide.value] || '';
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index;
+  selectedImage.value = images.value[index] || '';
+}
+
+// Touch/Swipe handling
+const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return;
+  touchStartX.value = e.changedTouches[0].screenX;
+  isDragging.value = true;
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.changedTouches?.[0]) return;
+  touchEndX.value = e.changedTouches[0].screenX;
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return;
+  const swipeThreshold = 50;
+  const diff = touchStartX.value - touchEndX.value;
+  
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      nextSlide();
+    } else {
+      prevSlide();
+    }
+  }
+  isDragging.value = false;
+}
 const copiedIndex = ref<number | null>(null);
 const copiedQrIndex = ref<number | null>(null);
 const activeTab = ref<'bank' | 'digital'>('bank');
@@ -462,66 +516,86 @@ onMounted(fetchWishes);
             dengan hati."</p>
         </div>
 
-        <!-- Premium Gallery Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          <Motion v-for="(img, idx) in images" :key="idx" :initial="{ opacity: 0, y: 30 }"
-            :while-in-view="{ opacity: 1, y: 0 }" :viewport="{ once: true, margin: '-50px' }"
-            :transition="{ delay: idx * 0.08, duration: 0.5 }"
-            class="group relative overflow-hidden cursor-pointer rounded-xl"
-            :class="idx === 0 ? 'md:col-span-2 md:row-span-2' : ''" @click="selectedImage = img; showLightbox = true">
-            <!-- Image with Zoom Effect -->
-            <NuxtImg :src="img" class="w-full object-cover transition-all duration-700 group-hover:scale-110"
-              :class="idx === 0 ? 'h-56 md:h-full' : 'h-48 md:h-56'" alt="Gallery" quality="85" format="webp"
-              referrerPolicy="no-referrer" />
-
-            <!-- Premium Overlay -->
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <!-- Animated Border -->
-              <div
-                class="absolute inset-2 border-2 border-white/0 group-hover:border-white/40 rounded-lg transition-all duration-300">
-              </div>
-
-              <!-- Corner Accents -->
-              <div
-                class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white/0 group-hover:border-white/60 rounded-tl-lg transition-all duration-300">
-              </div>
-              <div
-                class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white/0 group-hover:border-white/60 rounded-tr-lg transition-all duration-300">
-              </div>
-              <div
-                class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white/0 group-hover:border-white/60 rounded-bl-lg transition-all duration-300">
-              </div>
-              <div
-                class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white/0 group-hover:border-white/60 rounded-br-lg transition-all duration-300">
-              </div>
-
-              <!-- Center Icon -->
-              <div class="absolute inset-0 flex items-center justify-center">
+        <!-- Premium Gallery Carousel with Swipe -->
+        <div 
+          class="relative overflow-hidden rounded-3xl"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        >
+          <!-- Slides Container -->
+          <div 
+            class="flex transition-transform duration-500 ease-out"
+            :style="{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }"
+          >
+            <div 
+              v-for="(img, index) in images.slice(0, 9)" 
+              :key="index"
+              class="w-1/3 flex-shrink-0 px-2"
+            >
+              <Motion 
+                :initial="{ opacity: 0, scale: 0.9 }" 
+                :whileInView="{ opacity: 1, scale: 1 }" 
+                :transition="{ duration: 0.5, delay: index * 0.05 }"
+                :viewport="{ once: true }"
+                class="aspect-square rounded-2xl overflow-hidden cursor-pointer group relative"
+                @click="openLightboxAtIndex(index)"
+              >
+                <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  referrerPolicy="no-referrer" />
                 <div
-                  class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
-                  <ZoomIn class="text-white" :size="24" />
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
+                  <span class="text-white/90 text-sm">Lihat</span>
                 </div>
-              </div>
-
-              <!-- View Text -->
-              <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
-                <span
-                  class="text-white/0 group-hover:text-white text-xs font-light tracking-widest uppercase transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">Lihat
-                  Foto</span>
-              </div>
+              </Motion>
             </div>
-
-            <!-- Index Number -->
-            <div
-              class="absolute top-3 left-3 w-6 h-6 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="text-white text-xs font-light">{{ idx + 1 }}</span>
-            </div>
-          </Motion>
+          </div>
+          
+          <!-- Navigation Arrows -->
+          <button 
+            @click.stop="prevSlide"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md border border-amber-200 flex items-center justify-center text-amber-600 hover:bg-amber-50 hover:text-amber-700 transition-all z-10"
+          >
+            <ChevronLeft :size="20" />
+          </button>
+          <button 
+            @click.stop="nextSlide"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md border border-amber-200 flex items-center justify-center text-amber-600 hover:bg-amber-50 hover:text-amber-700 transition-all z-10"
+          >
+            <ChevronRight :size="20" />
+          </button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="flex justify-center gap-2 mt-6">
+          <button 
+            v-for="(_, index) in Math.min(images.slice(0, 9).length, 6)" 
+            :key="index"
+            @click="goToSlide(index)"
+            :class="[
+              'w-2 h-2 rounded-full transition-all duration-300',
+              currentSlide === index ? 'w-8 bg-amber-500' : 'bg-stone-300 hover:bg-stone-400'
+            ]"
+          />
         </div>
       </div>
-      <LightboxModal :show="showLightbox" :image="selectedImage" :images="images" @close="showLightbox = false" />
+      
+      <!-- Lightbox -->
+      <div v-if="showLightbox" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" @click="showLightbox = false">
+        <button class="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-full" @click.stop="showLightbox = false">
+          <X :size="24" />
+        </button>
+        <button class="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-white hover:bg-white/20 rounded-full" @click.stop="prevSlide">
+          <ChevronLeft :size="32" />
+        </button>
+        <img :src="selectedImage" alt="Gallery" class="max-w-full max-h-[80vh] object-contain" @click.stop />
+        <button class="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white hover:bg-white/20 rounded-full" @click.stop="nextSlide">
+          <ChevronRight :size="32" />
+        </button>
+      </div>
     </section>
+    
     <section id="location" class="py-5 relative overflow-hidden">
       <div class="max-w-6xl mx-auto px-4 sm:px-8 relative z-10">
         <!-- Section Header -->
