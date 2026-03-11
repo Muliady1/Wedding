@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Send, ZoomIn, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, MessageSquare, Calendar, Clock, MapPin, Gift, Images, Sparkles, ChevronDown, ChevronLeft, ChevronRight, X, Play, Pause } from 'lucide-vue-next'
+import { Send, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, MessageSquare, Calendar, Clock, MapPin, Gift, Images, Sparkles, ChevronLeft, ChevronRight, X, Play, Pause } from 'lucide-vue-next'
 import { Motion, AnimatePresence } from 'motion-v'
 import { stories, galleryImages, COUPLE, eventLocations, accounts, qrCodes } from '~/composables/useData'
 
@@ -122,23 +122,23 @@ const openLightbox = (img: string) => {
 
 const openLightboxAtIndex = (index: number) => {
   currentSlide.value = index;
-  selectedImage.value = images.value[index];
+  selectedImage.value = images.value[index] || '';
   showLightbox.value = true;
 }
 
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % images.value.length;
-  selectedImage.value = images.value[currentSlide.value];
+  selectedImage.value = images.value[currentSlide.value] || '';
 }
 
 const prevSlide = () => {
   currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length;
-  selectedImage.value = images.value[currentSlide.value];
+  selectedImage.value = images.value[currentSlide.value] || '';
 }
 
 const goToSlide = (index: number) => {
   currentSlide.value = index;
-  selectedImage.value = images.value[index];
+  selectedImage.value = images.value[index] || '';
 }
 
 const toggleAutoPlay = () => {
@@ -156,12 +156,13 @@ const touchEndX = ref(0);
 const isDragging = ref(false);
 
 const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return;
   touchStartX.value = e.changedTouches[0].screenX;
   isDragging.value = true;
 }
 
 const handleTouchMove = (e: TouchEvent) => {
-  if (!isDragging.value) return;
+  if (!isDragging.value || !e.changedTouches?.[0]) return;
   touchEndX.value = e.changedTouches[0].screenX;
 }
 
@@ -485,9 +486,9 @@ onMounted(() => {
         <div v-if="showLightbox" class="fixed inset-0 z-50 flex items-center justify-center">
           <!-- Backdrop -->
           <Motion 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }}
+            :initial="{ opacity: 0 }" 
+            :animate="{ opacity: 1 }" 
+            :exit="{ opacity: 0 }"
             class="absolute inset-0 bg-black/95 backdrop-blur-xl"
             @click="showLightbox = false"
           />
