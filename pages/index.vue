@@ -2,6 +2,17 @@
 import { ref, onMounted, computed } from 'vue';
 import { COUPLE } from '~/composables/useData';
 import TemplatesElegant from './templates/elegant.vue';
+import TemplatesClassic from './templates/classic.vue';
+import TemplatesSoftPastel from './templates/soft-pastel.vue';
+import TemplatesModernGeometric from './templates/modern-geometric.vue';
+import TemplatesModernMinimalist from './templates/modern-minimalist.vue';
+import TemplatesRomanticGarden from './templates/romantic-garden.vue';
+import TemplatesTropicalParadise from './templates/tropical-paradise.vue';
+import TemplatesVintageBohemian from './templates/vintage-bohemian.vue';
+import TemplatesRusticChic from './templates/rustic-chic.vue';
+import TemplatesLuxeGold from './templates/luxe-gold.vue';
+import TemplatesFairyTale from './templates/fairy-tale.vue';
+import TemplatesDarkRomance from './templates/dark-romance.vue';
 
 const guestName = ref(COUPLE.guestName);
 const theme = useState<string>('theme', () => 'elegant');
