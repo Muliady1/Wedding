@@ -270,6 +270,7 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }"
           >
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
               Our Story
@@ -282,11 +283,11 @@ onMounted(() => {
           <Motion
             v-for="(story, index) in coupleStories"
             :key="index"
-            :initial="{ opacity: 0, x: story.isLeft ? -50 : 50 }"
-            :whileInView="{ opacity: 1, x: 0 }"
-            :transition="{ duration: 0.6, delay: index * 0.2 }"
-            class="relative flex items-center gap-8"
-            :class="story.isLeft ? 'flex-row' : 'flex-row-reverse'"
+            :initial="{ opacity: 0, y: 30 }"
+            :whileInView="{ opacity: 1, y: 0 }"
+            :transition="{ duration: 0.6, delay: index * 0.1 }"
+            class="relative"
+            :viewport="{ once: true, margin: '-50px' }"
           >
             <div class="flex-1 text-center">
               <div class="inline-block p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10">
@@ -309,6 +310,7 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }"
           >
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 text-sm mb-4">
               <Images :size="16" /> Gallery
@@ -324,6 +326,7 @@ onMounted(() => {
             :initial="{ opacity: 0, scale: 0.9 }"
             :whileInView="{ opacity: 1, scale: 1 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
+            :viewport="{ once: true, margin: '-50px' }"
             class="aspect-square rounded-2xl overflow-hidden cursor-pointer group"
             @click="openLightbox(img)"
           >
@@ -347,9 +350,10 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }"
           >
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-sm mb-4">
-              <MapPins :size="16" /> Location
+              <MapPin :size="16" /> Location
             </span>
           </Motion>
           <h2 class="text-4xl sm:text-5xl font-light mb-4">Lokasi Acara</h2>
@@ -362,7 +366,8 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
-            class="p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
+            :viewport="{ once: true, margin: '-50px' }"
+            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
           >
             <h3 class="text-xl font-medium mb-4 flex items-center gap-2">
               <Clock :size="20" class="text-rose-400" />
@@ -400,6 +405,7 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }"
           >
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-sm mb-4">
               <Gift :size="16" /> Wedding Gift
@@ -437,7 +443,8 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
-            class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+            :viewport="{ once: true, margin: '-50px' }"
+            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
           >
             <div class="flex items-center gap-4 mb-4">
               <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" :style="{ backgroundColor: account.color }">
@@ -466,7 +473,8 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
-            class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-center"
+            :viewport="{ once: true, margin: '-50px' }"
+            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-center"
           >
             <div class="w-24 h-24 mx-auto mb-4 rounded-xl flex items-center justify-center text-white font-bold" :style="{ backgroundColor: qr.color }">
               {{ qr.logo }}
@@ -494,6 +502,7 @@ onMounted(() => {
             :initial="{ opacity: 0, y: 20 }"
             :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }"
           >
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
               <MessageSquare :size="16" /> Ucapan & Doa
@@ -506,10 +515,11 @@ onMounted(() => {
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Form -->
           <Motion
-            :initial="{ opacity: 0, x: -20 }"
-            :whileInView="{ opacity: 1, x: 0 }"
+            :initial="{ opacity: 0, y: 20 }"
+            :whileInView="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6 }"
-            class="p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
+            :viewport="{ once: true, margin: '-50px' }"
+            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
           >
             <h3 class="text-xl font-medium mb-6 flex items-center gap-2">
               <MessageCircle :size="20" class="text-rose-400" />
@@ -546,9 +556,10 @@ onMounted(() => {
 
           <!-- Wishes List -->
           <Motion
-            :initial="{ opacity: 0, x: 20 }"
-            :whileInView="{ opacity: 1, x: 0 }"
-            :transition="{ duration: 0.6 }"
+            :initial="{ opacity: 0, y: 20 }"
+            :whileInView="{ opacity: 1, y: 0 }"
+            :transition="{ duration: 0.6, delay: 0.2 }"
+            :viewport="{ once: true, margin: '-50px' }"
             class="space-y-4 max-h-[500px] overflow-y-auto pr-2"
           >
             <div v-if="wishes.length === 0" class="text-center py-12 text-white/40">
