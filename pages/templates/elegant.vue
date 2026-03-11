@@ -167,9 +167,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen text-white">on tarnsasgit add .
-git commit -m "wedding"
-git push -u origin main
+  <div class="min-h-screen text-white">
     <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <!-- Animated Background -->

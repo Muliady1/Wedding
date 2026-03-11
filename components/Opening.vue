@@ -234,7 +234,7 @@ const themeClasses = computed(() => {
             <Motion v-if="selectedMode === 'golden'" :initial="{ scale: 0.7, opacity: 0 }"
               :animate="{ scale: 1, opacity: 1 }" :transition="{ delay: 0.5, duration: 0.9, type: 'spring' }"
               class="mb-5 md:mb-6 relative">
-              <div class="relative mx-auto w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52">
+              <div class="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 md:w-52 md:h-52">
                 <!-- Multiple rings for elegant frame -->
                 <div class="absolute inset-0 rounded-full border-2 border-amber-300/30"></div>
                 <div class="absolute inset-1 rounded-full border border-amber-200/40 shadow-2xl shadow-amber-500/20"></div>
