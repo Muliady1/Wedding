@@ -77,6 +77,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-Made with ❤️ by [gi](https://digitalsolutionsds.vercel.app)
+Made with ❤️ by [Digital Solutions](https://digitalsolutionsds.vercel.app)
 
 </div>

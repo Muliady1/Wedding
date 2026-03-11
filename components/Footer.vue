@@ -15,9 +15,6 @@ const instagramUrl = computed(() => {
     <!-- Wave Pattern -->
     <div class="absolute top-0 left-0 w-full -mt-8 pointer-events-none">
       <svg class="w-full h-8" viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path fill="#fafaf9"
-          d="M0,224 L48,213.3 C96,203 192,181 288,181.3 C384,181 480,203 576,224 C672,245 768,267 864,250.7 C960,235 1056,181 1152,165.3 C1248,149 1344,171 1392,181.3 L1440,192 L1440,320 L0,320 Z">
-        </path>
       </svg>
     </div>
 
