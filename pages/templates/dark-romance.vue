@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { darkRomanceData } from '~/composables/useData'
-import { Heart, MessageSquare, Clock, MapPin, ChevronDown, Menu, X, Flame } from 'lucide-vue-next'
+import { Heart, MessageSquare, Clock, MapPin, ChevronDown, X } from 'lucide-vue-next'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'

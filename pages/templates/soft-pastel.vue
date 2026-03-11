@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Cloud, ChevronLeft, ZoomIn } from 'lucide-vue-next'
+import { Heart, MessageSquare, Clock, MapPin, ChevronDown, X, ChevronLeft, ZoomIn } from 'lucide-vue-next'
 import { softPastelData } from '~/composables/useData'
 
 import 'swiper/css'

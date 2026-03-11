@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { luxeGoldData } from '~/composables/useData'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Crown, Sparkles, Gem, Diamond } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Crown, Sparkles, Gem, Diamond, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
