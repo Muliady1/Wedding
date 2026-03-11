@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { rusticChicData } from '~/composables/useData'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, Menu, X, Home, Leaf, Wheat, Mountain } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Home, Leaf, Wheat, Mountain } from 'lucide-vue-next'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -107,6 +107,55 @@ const formatNumber = (num: number) => num.toString().padStart(2, '0')
 const openLightbox = (src: string) => { selectedImage.value = src; showLightbox.value = true }
 const closeLightbox = () => { showLightbox.value = false; selectedImage.value = '' }
 
+// Gallery Swipe/Carousel
+const currentSlide = ref(0)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const isDragging = ref(false)
+
+const openLightboxAtIndex = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+  showLightbox.value = true
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+}
+
+const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return
+  touchStartX.value = e.changedTouches[0].screenX
+  isDragging.value = true
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.changedTouches?.[0]) return
+  touchEndX.value = e.changedTouches[0].screenX
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return
+  const swipeThreshold = 50
+  const diff = touchStartX.value - touchEndX.value
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) nextSlide()
+    else prevSlide()
+  }
+  isDragging.value = false
+}
+
 const copyToClipboard = (text: string, index: number) => {
   navigator.clipboard.writeText(text)
   copiedIndex.value = index
@@ -134,39 +183,8 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     <div class="fixed inset-0 pointer-events-none z-0 opacity-10"
       style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CiAgPHBhdGggZD0iTTMwIDE1YzUuMjUgMCA5Ljc1IDQuNSA5Ljc1IDBzOS43NSA0LjUgOS43NSAxMHMtNC41IDkuNzUtOS43NSA5Ljc1LTkuNzUtNC41LTkuNzUtMTAtNC41LTkuNzUtOS43NS0xMHoiIGZpbGw9IiM4QjczNTUiIGZpbGwtb3BhY2l0eT0iMC41Ii8+Cjwvc3ZnPg==');">
     </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#F5F0E6]/95 backdrop-blur-sm border-b border-[#8B7355]/10">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-lg font-serif tracking-wider flex items-center gap-2">
-          <Home class="w-5 h-5 text-[#8B7355]" />
-          {{ props.groom }} & {{ props.bride }}
-        </div>
-        <button @click="showMenu = !showMenu" class="p-2 hover:bg-[#8B7355]/10 rounded-lg transition-colors">
-          <Menu v-if="!showMenu" class="w-6 h-6" />
-          <X v-else class="w-6 h-6" />
-        </button>
-      </div>
-      <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3 animate-slideDown">
-        <button @click="scrollToSection('home')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Home</button>
-        <button @click="scrollToSection('couple')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Couple</button>
-        <button @click="scrollToSection('story')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Story</button>
-        <button @click="scrollToSection('gallery')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Gallery</button>
-        <button @click="scrollToSection('event')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Event</button>
-        <button @click="scrollToSection('gift')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">Gift</button>
-        <button @click="scrollToSection('rsvp')"
-          class="text-left py-2 hover:text-[#8B7355] transition-colors">RSVP</button>
-      </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-[#F5F0E6] via-[#E8E0D5] to-[#D4C8B8]"></div>
       <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#8B7355]/10 to-transparent"></div>
       <div class="relative z-10 text-center px-6">
@@ -197,7 +215,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     </section>
 
     <!-- Couple Section -->
-    <section id="couple" class="py-24 px-6 relative">
+    <section id="couple" class="py-10 px-4 relative">
       <div class="max-w-4xl mx-auto">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('couple') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
@@ -230,7 +248,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     </section>
 
     <!-- Countdown Section -->
-    <section class="py-20 px-6 bg-[#5D4E37] text-[#F5F0E6]">
+    <section class="py-10 px-4 bg-[#5D4E37] text-[#F5F0E6]">
       <div class="max-w-3xl mx-auto">
         <div
           :class="['text-center mb-12 transition-all duration-700', isVisible('couple') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
@@ -249,7 +267,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     </section>
 
     <!-- Story Section -->
-    <section id="story" class="py-24 px-6 relative">
+    <section id="story" class="py-10 px-4 relative">
       <div class="max-w-4xl mx-auto relative">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('story') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
@@ -276,31 +294,77 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 px-6 bg-[#D4C8B8]/30">
+    <!-- Gallery Section with Swipe -->
+    <section id="gallery" class="py-10 px-4 bg-[#D4C8B8]/30">
       <div class="max-w-6xl mx-auto">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('gallery') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
           <p class="text-sm tracking-[0.3em] uppercase text-[#8B7355]/70 mb-4">Kenangan</p>
           <h2 class="text-4xl font-serif text-[#5D4E37]">Gallery</h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <div v-for="(img, index) in images" :key="index"
-            :class="['aspect-square bg-[#D4C8B8] overflow-hidden cursor-pointer group transition-all duration-700', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']"
-            :style="{ transitionDelay: index * 0.1 + 's' }" @click="openLightbox(img)">
-            <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div
-              class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-              <ZoomIn class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+        
+        <!-- Swipe Carousel -->
+        <div 
+          class="relative overflow-hidden rounded-3xl"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        >
+          <div 
+            class="flex transition-transform duration-500 ease-out"
+            :style="{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }"
+          >
+            <div 
+              v-for="(img, index) in images.slice(0, 9)" 
+              :key="index"
+              class="w-1/3 flex-shrink-0 px-2"
+            >
+              <div 
+                :class="['aspect-square rounded-2xl overflow-hidden cursor-pointer group transition-all duration-700', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']"
+                @click="openLightboxAtIndex(index)"
+              >
+                <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div
+                  class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                  <ZoomIn class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
             </div>
           </div>
+          
+          <!-- Navigation Arrows -->
+          <button 
+            @click.stop="prevSlide"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#8B7355] hover:bg-[#8B7355] hover:text-white transition-all z-10"
+          >
+            <ChevronLeft :size="20" />
+          </button>
+          <button 
+            @click.stop="nextSlide"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#8B7355] hover:bg-[#8B7355] hover:text-white transition-all z-10"
+          >
+            <ChevronRight :size="20" />
+          </button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="flex justify-center gap-2 mt-6">
+          <button 
+            v-for="(_, index) in Math.min(images.slice(0, 9).length, 6)" 
+            :key="index"
+            @click="goToSlide(index)"
+            :class="[
+              'w-2 h-2 rounded-full transition-all duration-300',
+              currentSlide === index ? 'w-8 bg-[#8B7355]' : 'bg-[#8B7355]/30 hover:bg-[#8B7355]/50'
+            ]"
+          />
         </div>
       </div>
     </section>
 
     <!-- Event Section -->
-    <section id="event" class="py-24 px-6 relative">
+    <section id="event" class="py-10 px-4 relative">
       <div class="max-w-4xl mx-auto">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('event') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
@@ -355,7 +419,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     </section>
 
     <!-- Gift Section -->
-    <section id="gift" class="py-24 px-6 bg-[#D4C8B8]/30">
+    <section id="gift" class="py-10 px-4 bg-[#D4C8B8]/30">
       <div class="max-w-4xl mx-auto">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('gift') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
@@ -412,7 +476,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
     </section>
 
     <!-- RSVP Section -->
-    <section id="rsvp" class="py-24 px-6">
+    <section id="rsvp" class="py-10 px-4">
       <div class="max-w-2xl mx-auto">
         <div
           :class="['text-center mb-16 transition-all duration-700', isVisible('rsvp') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">

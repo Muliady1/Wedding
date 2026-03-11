@@ -147,31 +147,8 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#F5E6D3]/95 backdrop-blur-sm border-b border-[#8B4513]/10">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-lg font-serif tracking-wider flex items-center gap-2">
-          <Feather class="w-5 h-5 text-[#8B4513]" />
-          {{ props.groom }} & {{ props.bride }}
-        </div>
-        <button @click="showMenu = !showMenu" class="p-2 hover:bg-[#8B4513]/10 rounded-lg transition-colors">
-          <Menu v-if="!showMenu" class="w-6 h-6" />
-          <X v-else class="w-6 h-6" />
-        </button>
-      </div>
-      <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3 animate-slideDown">
-        <button @click="scrollToSection('home')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Home</button>
-        <button @click="scrollToSection('couple')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Couple</button>
-        <button @click="scrollToSection('story')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Story</button>
-        <button @click="scrollToSection('gallery')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Gallery</button>
-        <button @click="scrollToSection('event')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Event</button>
-        <button @click="scrollToSection('gift')" class="text-left py-2 hover:text-[#8B4513] transition-colors">Gift</button>
-        <button @click="scrollToSection('rsvp')" class="text-left py-2 hover:text-[#8B4513] transition-colors">RSVP</button>
-      </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-[#F5E6D3] via-[#EBD9C8] to-[#D4A574]"></div>
       <div class="absolute inset-0">
         <div class="absolute top-10 left-1/4 w-72 h-72 bg-[#8B4513]/10 rounded-full blur-3xl animate-pulse"></div>

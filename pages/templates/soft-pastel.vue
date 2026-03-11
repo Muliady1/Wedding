@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Heart, MessageSquare, Clock, MapPin, ChevronDown, Menu, X, Cloud, ChevronLeft, ZoomIn } from 'lucide-vue-next'
+import { Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Cloud, ChevronLeft, ZoomIn } from 'lucide-vue-next'
 import { softPastelData } from '~/composables/useData'
 
 import 'swiper/css'
@@ -107,18 +107,8 @@ const handleTouchEnd = () => {
 </script>
 
 <template>
-<div class="min-h-screen bg-[#FFF5F5] text-[#8B7D7B] font-sans">
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#FFF5F5]/95 backdrop-blur-sm border-b border-[#FFB6C1]/20">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-lg font-light tracking-wider flex items-center gap-2"><Cloud class="w-5 h-5 text-[#FFB6C1]" /> {{ props.groom }} & {{ props.bride }}</div>
-      <button @click="showMenu = !showMenu" class="p-2"><Menu v-if="!showMenu" class="w-6 h-6" /><X v-else class="w-6 h-6" /></button>
-    </div>
-    <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3">
-      <button v-for="s in ['home', 'couple', 'story', 'gallery', 'event', 'gift', 'rsvp']" :key="s" @click="scrollToSection(s)" class="text-left py-2 hover:text-[#FFB6C1] capitalize">{{ s }}</button>
-    </div>
-  </nav>
-
-  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+<div class="min-h-screen  text-[#8B7D7B] font-sans">
+  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-[#FFF5F5] via-[#FFF0F5] to-[#FFE4E1]"></div>
     <div class="relative z-10 text-center px-6">
       <div class="animate-fadeInUp"><p class="text-sm tracking-[0.4em] uppercase text-[#FFB6C1] mb-4">The Wedding Of</p></div>
@@ -129,7 +119,7 @@ const handleTouchEnd = () => {
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"><button @click="scrollToSection('couple')" class="p-3 rounded-full border border-[#FFB6C1]/30"><ChevronDown class="w-6 h-6 text-[#FFB6C1]" /></button></div>
   </section>
 
-  <section id="couple" class="py-24 px-6">
+  <section id="couple" class="py-10 px-4">
     <div class="max-w-4xl mx-auto">
       <div :class="['text-center mb-16 transition-all', isVisible('couple') ? 'opacity-100' : 'opacity-0']"><p class="text-sm tracking-[0.3em] uppercase text-[#FFB6C1] mb-4">Mempelai</p><h2 class="text-4xl font-light">Couple</h2></div>
       <div class="grid md:grid-cols-2 gap-16">
@@ -145,7 +135,7 @@ const handleTouchEnd = () => {
     </div>
   </section>
 
-  <section class="py-20 px-6 bg-[#FFB6C1]/20">
+  <section class="py-10 px-4 bg-[#FFB6C1]/20">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-12"><p class="text-sm tracking-[0.3em] uppercase text-[#8B7D7B] mb-4">Hitung Mundur</p><h2 class="text-3xl font-light">Menuju Hari Bahagia</h2></div>
       <div class="grid grid-cols-4 gap-4">
@@ -157,7 +147,7 @@ const handleTouchEnd = () => {
     </div>
   </section>
 
-  <section id="story" class="py-24 px-6">
+  <section id="story" class="py-10 px-4">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16"><p class="text-sm tracking-[0.3em] uppercase text-[#FFB6C1] mb-4">Kisah Cinta</p><h2 class="text-4xl font-light">Our Story</h2></div>
       <div class="relative">
@@ -176,7 +166,7 @@ const handleTouchEnd = () => {
     </div>
   </section>
 
-  <section id="gallery" class="py-24 px-6 bg-[#FFE4E1]/30">
+  <section id="gallery" class="py-10 px-4 bg-[#FFE4E1]/30">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16"><p class="text-sm tracking-[0.3em] uppercase text-[#FFB6C1] mb-4">Kenangan</p><h2 class="text-4xl font-light">Gallery</h2></div>
       
@@ -239,7 +229,7 @@ const handleTouchEnd = () => {
     </div>
   </section>
 
-  <section id="event" class="py-24 px-6">
+  <section id="event" class="py-10 px-4">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16"><p class="text-sm tracking-[0.3em] uppercase text-[#FFB6C1] mb-4">Jadwal</p><h2 class="text-4xl font-light">Wedding Event</h2></div>
       <div class="grid md:grid-cols-2 gap-8">
@@ -251,7 +241,7 @@ const handleTouchEnd = () => {
     </div>
   </section>
 
-  <section id="rsvp" class="py-24 px-6">
+  <section id="rsvp" class="py-10 px-4">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-16"><p class="text-sm tracking-[0.3em] uppercase text-[#FFB6C1] mb-4">Konfirmasi</p><h2 class="text-4xl font-light">RSVP</h2><p class="text-[#8B7D7B]/60 mt-4">Mohon konfirmasi sebelum 1 Juni 2026</p></div>
       <form class="space-y-6">

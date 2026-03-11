@@ -50,17 +50,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
 
 <template>
 <div class="min-h-screen bg-white text-[#2C3E50] font-sans">
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b-4 border-[#2C3E50]">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-lg font-bold tracking-widest flex items-center gap-2"><Hexagon class="w-5 h-5" /> {{ props.groom }} & {{ props.bride }}</div>
-      <button @click="showMenu = !showMenu" class="p-2"><Menu v-if="!showMenu" class="w-6 h-6" /><X v-else class="w-6 h-6" /></button>
-    </div>
-    <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3 bg-white">
-      <button v-for="s in ['home', 'couple', 'story', 'gallery', 'event', 'gift', 'rsvp']" :key="s" @click="scrollToSection(s)" class="text-left py-2 hover:text-[#E74C3C] transition-colors capitalize">{{ s }}</button>
-    </div>
-  </nav>
-
-  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100"></div>
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="w-[500px] h-[500px] border-2 border-[#2C3E50]/10 rotate-45 absolute"></div>

@@ -40,16 +40,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
 
 <template>
 <div class="min-h-screen bg-[#0D0D0D] text-[#F5F5F5] font-sans">
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D]/95 border-b border-[#DC143C]/20">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-lg font-serif tracking-widest flex items-center gap-2"><Flame class="w-5 h-5 text-[#DC143C]" /> {{ props.groom }} & {{ props.bride }}</div>
-      <button @click="showMenu = !showMenu" class="p-2"><Menu v-if="!showMenu" class="w-6 h-6" /><X v-else class="w-6 h-6" /></button>
-    </div>
-    <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3">
-      <button v-for="s in ['home', 'couple', 'story', 'gallery', 'event', 'rsvp']" :key="s" @click="scrollToSection(s)" class="text-left py-2 hover:text-[#DC143C] capitalize">{{ s }}</button>
-    </div>
-  </nav>
-  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-[#0D0D0D] via-[#1A0505] to-[#0D0D0D]"></div>
     <div class="absolute inset-0">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#DC143C]/10 rounded-full"></div>

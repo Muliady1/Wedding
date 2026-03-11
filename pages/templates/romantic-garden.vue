@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, Menu, X, Flower2, Sun, Moon } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Flower2, Sun, Moon } from 'lucide-vue-next'
 import { Motion, AnimatePresence } from 'motion-v'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules'
@@ -153,38 +153,8 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#F8F5F0]/95 backdrop-blur-sm border-b border-[#5D8A66]/10">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-lg font-serif tracking-wider">
-          <Flower2 class="w-6 h-6 inline mr-2 text-[#5D8A66]" />
-          {{ props.groom }} & {{ props.bride }}
-        </div>
-        <button @click="showMenu = !showMenu" class="p-2 hover:bg-[#5D8A66]/10 rounded-lg transition-colors">
-          <Menu v-if="!showMenu" class="w-6 h-6" />
-          <X v-else class="w-6 h-6" />
-        </button>
-      </div>
-      <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3 animate-slideDown">
-        <button @click="scrollToSection('home')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Home</button>
-        <button @click="scrollToSection('couple')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Couple</button>
-        <button @click="scrollToSection('story')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Story</button>
-        <button @click="scrollToSection('gallery')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Gallery</button>
-        <button @click="scrollToSection('event')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Event</button>
-        <button @click="scrollToSection('gift')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">Gift</button>
-        <button @click="scrollToSection('rsvp')"
-          class="text-left py-2 hover:text-[#5D8A66] transition-colors">RSVP</button>
-      </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-[#F8F5F0] via-[#F0EBE3] to-[#E8E2D9]"></div>
       <div class="absolute inset-0">
         <div class="absolute top-10 left-1/4 w-64 h-64 bg-[#5D8A66]/10 rounded-full blur-3xl animate-pulse"></div>

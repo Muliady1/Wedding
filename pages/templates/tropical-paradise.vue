@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { tropicalParadiseData } from '~/composables/useData'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, Menu, X, Palmtree, Sun, Waves } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Palmtree, Sun, Waves, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -119,6 +119,60 @@ const copyQrToClipboard = (text: string, index: number) => {
   setTimeout(() => copiedQrIndex.value = null, 2000)
 }
 
+// Gallery Swipe/Carousel
+const currentSlide = ref(0)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const isDragging = ref(false)
+
+const openLightboxAtIndex = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+  showLightbox.value = true
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+}
+
+// Touch/Swipe handling
+const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return
+  touchStartX.value = e.changedTouches[0].screenX
+  isDragging.value = true
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.changedTouches?.[0]) return
+  touchEndX.value = e.changedTouches[0].screenX
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return
+  const swipeThreshold = 50
+  const diff = touchStartX.value - touchEndX.value
+  
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      nextSlide()
+    } else {
+      prevSlide()
+    }
+  }
+  isDragging.value = false
+}
+
 const scrollToSection = (id: string) => {
   showMenu.value = false
   const el = document.getElementById(id)
@@ -143,38 +197,8 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-lg font-bold tracking-wider flex items-center gap-2 text-[#2C3E50]">
-          <Palmtree class="w-5 h-5 text-[#228B22]" />
-          {{ props.groom }} & {{ props.bride }}
-        </div>
-        <button @click="showMenu = !showMenu" class="p-2 hover:bg-white/50 rounded-lg transition-colors">
-          <Menu v-if="!showMenu" class="w-6 h-6" />
-          <X v-else class="w-6 h-6" />
-        </button>
-      </div>
-      <div v-if="showMenu" class="px-6 pb-4 flex flex-col gap-3 animate-slideDown bg-white/90">
-        <button @click="scrollToSection('home')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Home</button>
-        <button @click="scrollToSection('couple')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Couple</button>
-        <button @click="scrollToSection('story')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Story</button>
-        <button @click="scrollToSection('gallery')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Gallery</button>
-        <button @click="scrollToSection('event')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Event</button>
-        <button @click="scrollToSection('gift')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">Gift</button>
-        <button @click="scrollToSection('rsvp')"
-          class="text-left py-2 hover:text-[#FF6B35] transition-colors">RSVP</button>
-      </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-[#87CEEB]/50 via-[#98D8C8]/50 to-[#F7DC6F]/50"></div>
       <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#98D8C8] to-transparent"></div>
       <div class="relative z-10 text-center px-6">
@@ -280,7 +304,7 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </section>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section with Swipe -->
     <section id="gallery" class="py-24 px-6 bg-white/30">
       <div class="max-w-6xl mx-auto">
         <div
@@ -288,17 +312,63 @@ const isVisible = (id: string) => visibleSections.value.has(id)
           <p class="text-sm tracking-[0.3em] uppercase text-[#2C3E50]/70 mb-4">Kenangan</p>
           <h2 class="text-4xl font-bold text-[#2C3E50]">Gallery</h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <div v-for="(img, index) in images" :key="index"
-            :class="['aspect-square bg-white/50 overflow-hidden cursor-pointer group transition-all duration-700 rounded-xl shadow-lg', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']"
-            :style="{ transitionDelay: index * 0.1 + 's' }" @click="openLightbox(img)">
-            <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div
-              class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-              <ZoomIn class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+        
+        <!-- Swipe Carousel -->
+        <div 
+          class="relative overflow-hidden rounded-3xl"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        >
+          <div 
+            class="flex transition-transform duration-500 ease-out"
+            :style="{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }"
+          >
+            <div 
+              v-for="(img, index) in images.slice(0, 9)" 
+              :key="index"
+              class="w-1/3 flex-shrink-0 px-2"
+            >
+              <div 
+                :class="['aspect-square rounded-2xl overflow-hidden cursor-pointer group transition-all duration-700 shadow-lg', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']"
+                @click="openLightboxAtIndex(index)"
+              >
+                <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div
+                  class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                  <ZoomIn class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
             </div>
           </div>
+          
+          <!-- Navigation Arrows -->
+          <button 
+            @click.stop="prevSlide"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white transition-all z-10"
+          >
+            <ChevronLeft :size="20" />
+          </button>
+          <button 
+            @click.stop="nextSlide"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#FF6B35] hover:bg-[#FF6B35] hover:text-white transition-all z-10"
+          >
+            <ChevronRight :size="20" />
+          </button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="flex justify-center gap-2 mt-6">
+          <button 
+            v-for="(_, index) in Math.min(images.slice(0, 9).length, 6)" 
+            :key="index"
+            @click="goToSlide(index)"
+            :class="[
+              'w-2 h-2 rounded-full transition-all duration-300',
+              currentSlide === index ? 'w-8 bg-[#FF6B35]' : 'bg-[#2C3E50]/30 hover:bg-[#2C3E50]/50'
+            ]"
+          />
         </div>
       </div>
     </section>
