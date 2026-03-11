@@ -1,2 +1,3 @@
 <template>
-  </template>
+  <Opening />
+</template>
