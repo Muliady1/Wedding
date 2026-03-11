@@ -1,5 +1,6 @@
 <template>
   <main>
-  <Opening />
+    <Opening />
+    <Navbar />
   </main>
 </template>

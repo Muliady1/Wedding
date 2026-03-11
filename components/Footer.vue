@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MessageCircle, Globe, Instagram, Mail } from 'lucide-vue-next'
-import { WEBSITE_OWNER} from '~/composables/useData'
+import { WEBSITE_OWNER } from '~/composables/useData'
 import { Motion } from 'motion-v'
 
 
@@ -12,16 +12,8 @@ const instagramUrl = computed(() => {
 
 <template>
   <footer class="relative">
-    <!-- Wave Pattern -->
-    <div class="absolute top-0 left-0 w-full -mt-8 pointer-events-none">
-      <svg class="w-full h-8" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      </svg>
-    </div>
-
-    <div class="bg-stone-50 pt-6 pb-4">
+    <div class="pt-6 pb-4">
       <div class="max-w-md mx-auto px-4">
-
-        <!-- Promo Message Card -->
         <Motion :initial="{ opacity: 0, y: 10 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.5 }"
           :viewport="{ once: true }">
           <div class="bg-white rounded-xl p-4 shadow-sm border border-stone-100 text-center">
@@ -55,7 +47,7 @@ const instagramUrl = computed(() => {
         <Motion :initial="{ opacity: 0 }" :whileInView="{ opacity: 1 }" :transition="{ duration: 0.5, delay: 0.2 }"
           :viewport="{ once: true }" class="mt-3 text-center">
           <p class="text-[10px] text-stone-400">
-            © 
+            ©
             <a :href="WEBSITE_OWNER.website" target="_blank" class="text-amber-600">{{ WEBSITE_OWNER.name }}</a>
           </p>
         </Motion>
