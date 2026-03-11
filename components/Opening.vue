@@ -302,7 +302,7 @@ const themeClasses = computed(() => {
                 'group relative px-6 py-3 md:px-12 md:py-4.5 backdrop-blur-md rounded-full text-white font-light tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-xs transition-all duration-500 hover:scale-105 hover:shadow-2xl mx-auto flex items-center justify-center gap-2 md:gap-3',
                 themeClasses.bgButton,
                 themeClasses.glow
-              ]" style="min-width: 180px md:min-width:220px;">
+              ]" style="min-width: 180px;">
                 <!-- Button shine effect -->
                 <div class="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <component :is="getIcon" :size="14" class="group-hover:scale-110 group-hover:fill-white transition-all duration-300" />
