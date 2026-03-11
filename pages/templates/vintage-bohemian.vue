@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { vintageBohemianData } from '~/composables/useData'
-import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Feather, Star, Sunset, Bird, ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import { ZoomIn, Copy, Check, Heart, MessageSquare, Clock, MapPin, ChevronDown, X, Feather, Star, Sunset, Bird } from 'lucide-vue-next'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
