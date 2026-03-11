@@ -15,9 +15,7 @@ const emit = defineEmits(['open', 'toggle-music', 'update:mode'])
 
 // Mode selection
 const selectedMode = ref<'romantic' | 'modern' | 'golden'>('romantic')
-const isPlaying = ref(false)
 
-// Icon based on mode
 const getIcon = computed(() => {
   if (selectedMode.value === 'modern') return Sparkles
   if (selectedMode.value === 'golden') return Gem
@@ -84,11 +82,16 @@ const themeClasses = computed(() => {
 </script>
 
 <template>
-  <main>
+  <main class="relative min-h-screnn">
     <AnimatePresence>
-      <Motion v-if="!isOpened" key="overlay" :initial="{ opacity: 1 }" :exit="{ opacity: 0, scale: 1.1, y: -50 }"
-        :transition="{ duration: 0.6, ease: 'easeInOut' }"
-        class="fixed inset-0 z-50 flex flex-col text-white text-center px-4 overflow-hidden">
+      <Motion
+      v-if="!isOpened"
+      key="overlay"
+      :initial="{ opacity: 1 }"
+      :exit="{ opacity: 0, y: -1000 }"
+      :transition="{ duration: 1, ease: 'easeInOut' }"
+      class="fixed inset-0 z-50 flex flex-col text-white text-center px-4 overflow-hidden"
+    >
         
         <!-- Mode Selector - Improved Design -->
         <div class="absolute top-2 md:top-4 left-0 right-0 z-20 flex justify-center px-2">
@@ -321,17 +324,6 @@ const themeClasses = computed(() => {
 </template>
 
 <style scoped>
-/* Hide scrollbar completely */
-:global(html), :global(body) {
-  overflow: hidden !important;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-:global(html)::-webkit-scrollbar,
-:global(body)::-webkit-scrollbar {
-  display: none !important;
-}
 
 @keyframes float-heart {
   0%, 100% {

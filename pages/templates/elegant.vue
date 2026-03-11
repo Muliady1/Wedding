@@ -173,72 +173,68 @@ onMounted(() => {
       <!-- Animated Background -->
       <div class="absolute inset-0 overflow-hidden">
         <div class="absolute top-1/4 -left-20 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-rose-500/10 via-violet-500/10 to-sky-500/10 rounded-full blur-3xl"></div>
-        
+        <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse"
+          style="animation-delay: 1s"></div>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-rose-500/10 via-violet-500/10 to-sky-500/10 rounded-full blur-3xl">
+        </div>
+
         <!-- Floating Elements -->
         <div class="absolute top-20 left-10 text-rose-400/20 animate-bounce" style="animation-duration: 3s">
           <Heart :size="40" />
         </div>
-        <div class="absolute top-32 right-20 text-violet-400/20 animate-bounce" style="animation-duration: 4s; animation-delay: 1s">
+        <div class="absolute top-32 right-20 text-violet-400/20 animate-bounce"
+          style="animation-duration: 4s; animation-delay: 1s">
           <Heart :size="32" />
         </div>
-        <div class="absolute bottom-32 left-20 text-sky-400/20 animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s">
+        <div class="absolute bottom-32 left-20 text-sky-400/20 animate-bounce"
+          style="animation-duration: 3.5s; animation-delay: 0.5s">
           <Heart :size="28" />
         </div>
       </div>
 
       <div class="relative z-10 text-center px-4">
         <!-- Pre Title -->
-        <Motion
-          :initial="{ opacity: 0, y: 20 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 0.8 }"
-          class="mb-6"
-        >
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-rose-300">
+        <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }" :transition="{ duration: 0.8 }"
+          class="mb-6">
+          <span
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-rose-300">
             <Sparkles :size="16" />
             Wedding Invitation
           </span>
         </Motion>
 
         <!-- Names -->
-        <Motion
-          :initial="{ opacity: 0, y: 30 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 0.8, delay: 0.2 }"
-          class="mb-8"
-        >
+        <Motion :initial="{ opacity: 0, y: 30 }" :animate="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.8, delay: 0.2 }" class="mb-8">
           <h1 class="text-6xl sm:text-8xl md:text-9xl font-light tracking-wider">
-            <span class="block bg-gradient-to-r from-rose-300 via-violet-300 to-sky-300 bg-clip-text text-transparent">{{ groom }}</span>
+            <span
+              class="block bg-gradient-to-r from-rose-300 via-violet-300 to-sky-300 bg-clip-text text-transparent">{{
+              groom }}</span>
             <span class="text-4xl sm:text-5xl text-white/30 my-2">&</span>
-            <span class="block bg-gradient-to-r from-sky-300 via-violet-300 to-rose-300 bg-clip-text text-transparent">{{ bride }}</span>
+            <span
+              class="block bg-gradient-to-r from-sky-300 via-violet-300 to-rose-300 bg-clip-text text-transparent">{{
+              bride }}</span>
           </h1>
         </Motion>
 
         <!-- Date -->
-        <Motion
-          :initial="{ opacity: 0 }"
-          :animate="{ opacity: 1 }"
-          :transition="{ duration: 0.8, delay: 0.4 }"
-          class="mb-12"
-        >
-          <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+        <Motion :initial="{ opacity: 0 }" :animate="{ opacity: 1 }" :transition="{ duration: 0.8, delay: 0.4 }"
+          class="mb-12">
+          <div
+            class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
             <Calendar :size="20" class="text-rose-400" />
             <span class="text-lg text-white/80">{{ formattedDate }}</span>
           </div>
         </Motion>
 
         <!-- Countdown -->
-        <Motion
-          :initial="{ opacity: 0, y: 20 }"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 0.8, delay: 0.6 }"
-          class="mb-12"
-        >
+        <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.8, delay: 0.6 }" class="mb-12">
           <div class="flex justify-center gap-3 sm:gap-6">
             <div v-for="(value, key) in timeLeft" :key="key" class="text-center">
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-2">
+              <div
+                class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-2">
                 <span class="text-2xl sm:text-3xl font-bold">{{ formatNumber(value) }}</span>
               </div>
               <span class="text-xs text-white/50 uppercase tracking-wider">{{ key }}</span>
@@ -247,12 +243,8 @@ onMounted(() => {
         </Motion>
 
         <!-- Scroll Indicator -->
-        <Motion
-          :initial="{ opacity: 0 }"
-          :animate="{ opacity: 1, y: [0, 10, 0] }"
-          :transition="{ duration: 2, delay: 1, repeat: Infinity }"
-          class="mt-12"
-        >
+        <Motion :initial="{ opacity: 0 }" :animate="{ opacity: 1, y: [0, 10, 0] }"
+          :transition="{ duration: 2, delay: 1, repeat: Infinity }" class="mt-12">
           <div class="flex flex-col items-center gap-2 text-white/30">
             <span class="text-sm">Scroll untuk melihat</span>
             <ChevronDown :size="24" />
@@ -266,13 +258,10 @@ onMounted(() => {
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rose-500/5 to-transparent"></div>
       <div class="max-w-4xl mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
-            :viewport="{ once: true, margin: '-100px' }"
-          >
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
               Our Story
             </span>
           </Motion>
@@ -280,15 +269,9 @@ onMounted(() => {
         </div>
 
         <div class="space-y-8">
-          <Motion
-            v-for="(story, index) in coupleStories"
-            :key="index"
-            :initial="{ opacity: 0, y: 30 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6, delay: index * 0.1 }"
-            class="relative"
-            :viewport="{ once: true, margin: '-50px' }"
-          >
+          <Motion v-for="(story, index) in coupleStories" :key="index" :initial="{ opacity: 0, y: 30 }"
+            :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6, delay: index * 0.1 }" class="relative"
+            :viewport="{ once: true, margin: '-50px' }">
             <div class="flex-1 text-center">
               <div class="inline-block p-6 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10">
                 <span class="text-6xl font-light text-rose-400/50">{{ story.number }}</span>
@@ -306,13 +289,10 @@ onMounted(() => {
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent"></div>
       <div class="max-w-6xl mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
-            :viewport="{ once: true, margin: '-100px' }"
-          >
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 text-sm mb-4">
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 text-sm mb-4">
               <Images :size="16" /> Gallery
             </span>
           </Motion>
@@ -320,18 +300,14 @@ onMounted(() => {
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <Motion
-            v-for="(img, index) in images.slice(0, 6)"
-            :key="index"
-            :initial="{ opacity: 0, scale: 0.9 }"
-            :whileInView="{ opacity: 1, scale: 1 }"
-            :transition="{ duration: 0.5, delay: index * 0.1 }"
+          <Motion v-for="(img, index) in images.slice(0, 6)" :key="index" :initial="{ opacity: 0, scale: 0.9 }"
+            :whileInView="{ opacity: 1, scale: 1 }" :transition="{ duration: 0.5, delay: index * 0.1 }"
             :viewport="{ once: true, margin: '-50px' }"
-            class="aspect-square rounded-2xl overflow-hidden cursor-pointer group"
-            @click="openLightbox(img)"
-          >
-            <NuxtImg :src="img" :alt="`Gallery ${index + 1}`" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            class="aspect-square rounded-2xl overflow-hidden cursor-pointer group" @click="openLightbox(img)">
+            <NuxtImg :src="img" :alt="`Gallery ${index + 1}`"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+            <div
+              class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               <ZoomIn :size="32" class="text-white" />
             </div>
           </Motion>
@@ -346,12 +322,8 @@ onMounted(() => {
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-500/5 to-transparent"></div>
       <div class="max-w-4xl mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
-            :viewport="{ once: true, margin: '-100px' }"
-          >
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }">
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-sm mb-4">
               <MapPin :size="16" /> Location
             </span>
@@ -360,15 +332,10 @@ onMounted(() => {
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
-          <Motion
-            v-for="(event, key) in eventDetails"
-            :key="key"
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
+          <Motion v-for="(event, key) in eventDetails" :key="key" :initial="{ opacity: 0, y: 20 }"
+            :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
             :viewport="{ once: true, margin: '-50px' }"
-            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
-          >
+            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10">
             <h3 class="text-xl font-medium mb-4 flex items-center gap-2">
               <Clock :size="20" class="text-rose-400" />
               {{ event.title }}
@@ -380,14 +347,12 @@ onMounted(() => {
             </div>
             <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(event.location)"
               target="_blank" rel="noopener noreferrer"
-              class="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors"
-            >
+              class="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors">
               <MapPin :size="18" />
               Lihat di Peta
             </a>
             <button @click="addToCalendar"
-              class="mt-3 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 transition-colors"
-            >
+              class="mt-3 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 transition-colors">
               <Calendar :size="18" />
               Tambah ke Kalender
             </button>
@@ -401,34 +366,28 @@ onMounted(() => {
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/5 to-transparent"></div>
       <div class="max-w-4xl mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
-            :viewport="{ once: true, margin: '-100px' }"
-          >
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-sm mb-4">
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-sm mb-4">
               <Gift :size="16" /> Wedding Gift
             </span>
           </Motion>
           <h2 class="text-4xl sm:text-5xl font-light mb-4">Hadiah</h2>
-          <p class="text-white/60">Doa restu Anda adalah hadiah terindah bagi kami. Namun jika Anda ingin memberikan hadiah, kami menyediakan:</p>
+          <p class="text-white/60">Doa restu Anda adalah hadiah terindah bagi kami. Namun jika Anda ingin memberikan
+            hadiah, kami menyediakan:</p>
         </div>
 
         <!-- Tabs -->
         <div class="flex justify-center mb-8">
           <div class="inline-flex p-1 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-            <button
-              @click="activeTab = 'bank'"
-              :class="['px-6 py-3 rounded-xl transition-all', activeTab === 'bank' ? 'bg-rose-500 text-white' : 'text-white/60 hover:text-white']"
-            >
+            <button @click="activeTab = 'bank'"
+              :class="['px-6 py-3 rounded-xl transition-all', activeTab === 'bank' ? 'bg-rose-500 text-white' : 'text-white/60 hover:text-white']">
               <CreditCard :size="18" class="inline mr-2" />
               Transfer Bank
             </button>
-            <button
-              @click="activeTab = 'digital'"
-              :class="['px-6 py-3 rounded-xl transition-all', activeTab === 'digital' ? 'bg-rose-500 text-white' : 'text-white/60 hover:text-white']"
-            >
+            <button @click="activeTab = 'digital'"
+              :class="['px-6 py-3 rounded-xl transition-all', activeTab === 'digital' ? 'bg-rose-500 text-white' : 'text-white/60 hover:text-white']">
               <Smartphone :size="18" class="inline mr-2" />
               Digital Wallet
             </button>
@@ -437,17 +396,13 @@ onMounted(() => {
 
         <!-- Bank Accounts -->
         <div v-if="activeTab === 'bank'" class="grid sm:grid-cols-2 gap-4">
-          <Motion
-            v-for="(account, index) in accounts"
-            :key="index"
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.5, delay: index * 0.1 }"
+          <Motion v-for="(account, index) in accounts" :key="index" :initial="{ opacity: 0, y: 20 }"
+            :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.5, delay: index * 0.1 }"
             :viewport="{ once: true, margin: '-50px' }"
-            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
-          >
+            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
             <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold" :style="{ backgroundColor: account.color }">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold"
+                :style="{ backgroundColor: account.color }">
                 {{ account.logo }}
               </div>
               <div>
@@ -457,7 +412,8 @@ onMounted(() => {
             </div>
             <div class="flex items-center gap-2">
               <code class="flex-1 p-3 rounded-xl bg-black/20 font-mono">{{ account.number }}</code>
-              <button @click="copyToClipboard(account.number, index)" class="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors">
+              <button @click="copyToClipboard(account.number, index)"
+                class="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors">
                 <Copy v-if="copiedIndex !== index" :size="18" />
                 <Check v-else :size="18" class="text-green-400" />
               </button>
@@ -467,23 +423,20 @@ onMounted(() => {
 
         <!-- Digital Wallets -->
         <div v-else class="grid sm:grid-cols-3 gap-4">
-          <Motion
-            v-for="(qr, index) in qrCodes"
-            :key="index"
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.5, delay: index * 0.1 }"
+          <Motion v-for="(qr, index) in qrCodes" :key="index" :initial="{ opacity: 0, y: 20 }"
+            :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.5, delay: index * 0.1 }"
             :viewport="{ once: true, margin: '-50px' }"
-            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-center"
-          >
-            <div class="w-24 h-24 mx-auto mb-4 rounded-xl flex items-center justify-center text-white font-bold" :style="{ backgroundColor: qr.color }">
+            class="p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-center">
+            <div class="w-24 h-24 mx-auto mb-4 rounded-xl flex items-center justify-center text-white font-bold"
+              :style="{ backgroundColor: qr.color }">
               {{ qr.logo }}
             </div>
             <h4 class="font-medium mb-1">{{ qr.bank }}</h4>
             <p class="text-sm text-white/50 mb-3">{{ qr.owner }}</p>
             <div class="flex items-center justify-center gap-2">
               <code class="p-2 rounded-lg bg-black/20 font-mono text-xs">{{ qr.number }}</code>
-              <button @click="copyQr(qr.number, index)" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+              <button @click="copyQr(qr.number, index)"
+                class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
                 <Copy v-if="copiedQrIndex !== index" :size="14" />
                 <Check v-else :size="14" class="text-green-400" />
               </button>
@@ -498,13 +451,10 @@ onMounted(() => {
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rose-500/5 to-transparent"></div>
       <div class="max-w-4xl mx-auto px-4 relative z-10">
         <div class="text-center mb-12">
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
-            :viewport="{ once: true, margin: '-100px' }"
-          >
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
+            :viewport="{ once: true, margin: '-100px' }">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm mb-4">
               <MessageSquare :size="16" /> Ucapan & Doa
             </span>
           </Motion>
@@ -514,38 +464,21 @@ onMounted(() => {
 
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Form -->
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6 }"
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }" :transition="{ duration: 0.6 }"
             :viewport="{ once: true, margin: '-50px' }"
-            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10"
-          >
+            class="p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10">
             <h3 class="text-xl font-medium mb-6 flex items-center gap-2">
               <MessageCircle :size="20" class="text-rose-400" />
               Kirim Ucapan
             </h3>
 
             <form @submit.prevent="handleWish" class="space-y-4">
-              <input 
-                name="name"
-                type="text"
-                placeholder="Nama Anda"
-                required
-                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-rose-500 transition-colors"
-              />
-              <textarea 
-                name="message"
-                rows="4"
-                placeholder="Ucapan & Doa"
-                required
-                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-rose-500 transition-colors resize-none"
-              ></textarea>
-              <button 
-                type="submit"
-                :disabled="wishStatus === 'loading'"
-                class="w-full py-4 rounded-xl bg-gradient-to-r from-rose-500 to-violet-500 hover:from-rose-600 hover:to-violet-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-              >
+              <input name="name" type="text" placeholder="Nama Anda" required
+                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-rose-500 transition-colors" />
+              <textarea name="message" rows="4" placeholder="Ucapan & Doa" required
+                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-rose-500 transition-colors resize-none"></textarea>
+              <button type="submit" :disabled="wishStatus === 'loading'"
+                class="w-full py-4 rounded-xl bg-gradient-to-r from-rose-500 to-violet-500 hover:from-rose-600 hover:to-violet-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2">
                 <Send v-if="wishStatus !== 'loading'" :size="18" />
                 <span v-if="wishStatus === 'loading'">Mengirim...</span>
                 <span v-else-if="wishStatus === 'success'">Terkirim!</span>
@@ -555,25 +488,18 @@ onMounted(() => {
           </Motion>
 
           <!-- Wishes List -->
-          <Motion
-            :initial="{ opacity: 0, y: 20 }"
-            :whileInView="{ opacity: 1, y: 0 }"
-            :transition="{ duration: 0.6, delay: 0.2 }"
-            :viewport="{ once: true, margin: '-50px' }"
-            class="space-y-4 max-h-[500px] overflow-y-auto pr-2"
-          >
+          <Motion :initial="{ opacity: 0, y: 20 }" :whileInView="{ opacity: 1, y: 0 }"
+            :transition="{ duration: 0.6, delay: 0.2 }" :viewport="{ once: true, margin: '-50px' }"
+            class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
             <div v-if="wishes.length === 0" class="text-center py-12 text-white/40">
               <Heart :size="48" class="mx-auto mb-4 opacity-50" />
               <p>Belum ada ucapan</p>
               <p class="text-sm">Jadilah yang pertama!</p>
             </div>
-            <div
-              v-for="wish in wishes"
-              :key="wish.id"
-              class="p-4 rounded-2xl bg-white/5 border border-white/10"
-            >
+            <div v-for="wish in wishes" :key="wish.id" class="p-4 rounded-2xl bg-white/5 border border-white/10">
               <div class="flex items-center gap-3 mb-2">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-rose-500 to-violet-500 flex items-center justify-center">
+                <div
+                  class="w-10 h-10 rounded-full bg-gradient-to-r from-rose-500 to-violet-500 flex items-center justify-center">
                   <User :size="18" class="text-white" />
                 </div>
                 <div>

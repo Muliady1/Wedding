@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { COUPLE } from '~/composables/useData';
+import TemplatesElegant from './templates/elegant.vue';
 
-const router = useRouter()
 const guestName = ref(COUPLE.guestName);
-const isOpened = ref(false);
+const theme = useState<string>('theme', () => 'elegant');
+const isOpened = useState<boolean>('isOpened', () => false);
 
 onMounted(() => {
   const params = new URLSearchParams(globalThis.location.search);
@@ -12,22 +13,29 @@ onMounted(() => {
   if (to) guestName.value = to;
 });
 
-const emitOpen = () => {
-  isOpened.value = true;
-  // Navigate to elegant template with animation
-  setTimeout(() => {
-    router.push('/templates/elegant');
-  }, 600);
-}
+const themeComponent = computed(() => {
+  const themes: Record<string, any> = {
+    elegant: TemplatesElegant,
+   };
+  return themes[theme.value] || TemplatesElegant;
+});
+
 </script>
 <template>
   <main>
-    <Opening 
-      :is-opened="isOpened" 
+    <Opening :is-opened="isOpened" :groom="COUPLE.groom" :bride="COUPLE.bride" :guest-name="guestName"
+       @open="isOpened = true"/>
+       <MusicPlayer />
+    <Navbar />
+        <component 
+      :is="themeComponent" 
+      v-if="isOpened"
       :groom="COUPLE.groom" 
       :bride="COUPLE.bride" 
-      :guest-name="guestName"
-      @open="emitOpen" />
+      :date="COUPLE.date"
+      :location="COUPLE.location"
+      :map-url="COUPLE.mapUrl"
+    />
   </main>
 </template>
 
