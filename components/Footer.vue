@@ -25,43 +25,39 @@ const instagramUrl = computed(() => {
     <div class="bg-stone-50 pt-6 pb-4">
       <div class="max-w-md mx-auto px-4">
         
-        <!-- Small Promo Card -->
+        <!-- Promo Message Card -->
         <Motion
           :initial="{ opacity: 0, y: 10 }"
           :whileInView="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.5 }"
           :viewport="{ once: true }"
         >
-          <div class="bg-white rounded-xl p-3 shadow-sm border border-stone-100">
-            <div class="flex items-center justify-between gap-3">
-              <!-- Couple -->
-              <div class="text-xs text-stone-500">
-                <span class="font-medium text-stone-600">{{ bride }} & {{ groom }}</span>
-              </div>
-              
-              <!-- Divider -->
-              <div class="h-4 w-px bg-stone-200"></div>
-              
-              <!-- Promo -->
-              <div class="flex items-center gap-2">
-                <a :href="instagramUrl" target="_blank" class="p-1.5 rounded-lg bg-gradient-to-tr from-purple-500 to-pink-500 text-white">
-                  <Instagram class="w-3 h-3" />
-                </a>
-                <a :href="`mailto:${WEBSITE_OWNER.email}`" class="p-1.5 rounded-lg bg-stone-600 text-white">
-                  <Mail class="w-3 h-3" />
-                </a>
-                <a :href="`https://wa.me/${WEBSITE_OWNER.whatsapp}`" target="_blank" class="p-1.5 rounded-lg bg-green-500 text-white">
-                  <MessageCircle class="w-3 h-3" />
-                </a>
-                <a :href="WEBSITE_OWNER.website" target="_blank" class="p-1.5 rounded-lg bg-amber-500 text-white">
-                  <Globe class="w-3 h-3" />
-                </a>
-              </div>
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-stone-100 text-center">
+            <!-- Promo Text -->
+            <p class="text-xs text-stone-600 mb-3">
+              Ingin punya website undangan pernikahan seperti ini?<br/>
+              <span class="text-amber-600 font-medium">Pesan sekarang ke kami!</span>
+            </p>
+            
+            <!-- Icons Row -->
+            <div class="flex items-center justify-center gap-2">
+              <a :href="instagramUrl" target="_blank" class="p-2 rounded-lg bg-gradient-to-tr from-purple-500 to-pink-500 text-white hover:opacity-80">
+                <Instagram class="w-4 h-4" />
+              </a>
+              <a :href="`mailto:${WEBSITE_OWNER.email}`" class="p-2 rounded-lg bg-stone-600 text-white hover:bg-stone-700">
+                <Mail class="w-4 h-4" />
+              </a>
+              <a :href="`https://wa.me/${WEBSITE_OWNER.whatsapp}`" target="_blank" class="p-2 rounded-lg bg-green-500 text-white hover:bg-green-600">
+                <MessageCircle class="w-4 h-4" />
+              </a>
+              <a :href="WEBSITE_OWNER.website" target="_blank" class="p-2 rounded-lg bg-amber-500 text-white hover:bg-amber-600">
+                <Globe class="w-4 h-4" />
+              </a>
             </div>
           </div>
         </Motion>
 
-        <!-- Copyright -->
+        <!-- Couple & Copyright -->
         <Motion
           :initial="{ opacity: 0 }"
           :whileInView="{ opacity: 1 }"
@@ -69,6 +65,9 @@ const instagramUrl = computed(() => {
           :viewport="{ once: true }"
           class="mt-3 text-center"
         >
+          <div class="flex items-center justify-center gap-1 mb-1">
+            <Heart class="text-amber-400 w-3 h-3" />
+          </div>
           <p class="text-[10px] text-stone-400">
             © {{ currentYear }} {{ bride }} & {{ groom }} • 
             <a :href="WEBSITE_OWNER.website" target="_blank" class="text-amber-600">{{ WEBSITE_OWNER.name }}</a>
