@@ -249,12 +249,12 @@ const themeClasses = computed(() => {
 
             <!-- Venue, Date & Time Info - Enhanced Cards for All Modes -->
             <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
-              :transition="{ delay: 0.55, duration: 0.6 }" class="mb-4 md:mb-6">
-              <div class="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/10 shadow-xl">
+              :transition="{ delay: 0.55, duration: 0.6 }" class="mb-3 md:mb-5">
+              <div class="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-2.5 sm:p-3 md:p-5 border border-white/10 shadow-xl">
                 <!-- Date Section -->
-                <div class="flex items-center justify-center gap-2 mb-2 md:mb-3" :class="themeClasses.accent">
-                  <Calendar :size="14" class="opacity-80" />
-                  <span class="text-xs md:text-sm font-medium tracking-wider uppercase">{{ formattedWeddingDate }}</span>
+                <div class="flex items-center justify-center gap-1.5 mb-1.5 md:mb-2" :class="themeClasses.accent">
+                  <Calendar :size="12" class="opacity-80" />
+                  <span class="text-[10px] md:text-sm font-medium tracking-wider uppercase">{{ formattedWeddingDate }}</span>
                 </div>
                 
                 <!-- Divider -->

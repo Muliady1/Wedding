@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Heart, Sparkles, Flower2, Gem, Mountain, TreePine, Palmtree, Crown, Flame, Star, ChevronDown } from 'lucide-vue-next';
 
 const theme = useState<string>('theme');
@@ -21,7 +21,7 @@ const themes = [
   { id: 'dark-romance', label: 'Dark Romance', icon: Flame, color: '#dc2626' },
 ];
 
-const currentTheme = themes.find(t => t.id === theme.value) || themes[0];
+const currentTheme = computed(() => themes.find(t => t.id === theme.value) || themes[1]);
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
