@@ -82,9 +82,9 @@ const themeClasses = computed(() => {
 </script>
 
 <template>
-  <main class="relative min-h-screen">
+  <main>
     <AnimatePresence>
-      <Motion
+      <Motion h
       v-if="!isOpened"
       key="overlay"
       :initial="{ opacity: 1 }"
