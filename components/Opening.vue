@@ -94,8 +94,8 @@ const themeClasses = computed(() => {
     >
         
         <!-- Mode Selector - Improved Design -->
-        <div class="absolute top-2 md:top-4 left-0 right-0 z-20 flex justify-center px-2">
-          <div class="flex items-center gap-1 px-2 py-1.5 md:py-2 bg-black/20 backdrop-blur-md rounded-full">
+        <div class="absolute top-4 md:top-6 left-0 right-0 z-30 flex justify-center px-2">
+          <div class="flex items-center gap-1 px-2 py-2 md:py-2.5 bg-black/30 backdrop-blur-md rounded-full shadow-lg border border-white/10">
             <button @click="setMode('romantic')" :class="[
               'p-2 md:p-2.5 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
               selectedMode === 'romantic' ? 'bg-white/25 shadow-lg' : 'bg-white/5 hover:bg-white/15'
@@ -178,7 +178,7 @@ const themeClasses = computed(() => {
         </div>
 
         <!-- Main Content - Responsive -->
-        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-6 sm:py-8 md:py-16 lg:py-20 px-3 sm:px-4">
+        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-16 sm:py-20 md:py-24 lg:py-28 px-3 sm:px-4">
           <div class="w-full max-w-lg md:max-w-xl">
             
             <!-- Elegant Icon -->
