@@ -286,10 +286,10 @@ const themeClasses = computed(() => {
 
             <!-- Guest Name -->
             <Motion v-if="guestName" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
-              :transition="{ delay: 0.65, duration: 0.6 }" class="mb-5 md:mb-6">
-              <div class="inline-block px-5 py-2.5 md:px-6 md:py-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-                <p class="text-[10px] md:text-xs tracking-widest uppercase mb-1 text-white/50">Kepada</p>
-                <p :class="['text-lg md:text-xl font-serif italic', selectedMode === 'golden' ? 'text-amber-50' : 'text-white/90']">
+              :transition="{ delay: 0.65, duration: 0.6 }" class="mb-4 md:mb-5">
+              <div class="inline-block px-4 py-2 md:px-6 md:py-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+                <p class="text-[9px] md:text-xs tracking-widest uppercase mb-0.5 md:mb-1 text-white/50">Kepada</p>
+                <p :class="['text-base md:text-xl font-serif italic', selectedMode === 'golden' ? 'text-amber-50' : 'text-white/90']">
                   {{ guestName }}
                 </p>
               </div>
@@ -299,16 +299,16 @@ const themeClasses = computed(() => {
             <Motion :initial="{ opacity: 0, y: 25 }" :animate="{ opacity: 1, y: 0 }"
               :transition="{ delay: 0.8, duration: 0.7, type: 'spring' }">
               <button @click="emitOpen" :class="[
-                'group relative px-8 py-3.5 sm:px-10 sm:py-4 md:px-12 md:py-4.5 backdrop-blur-md rounded-full text-white font-light tracking-[0.2em] uppercase text-xs sm:text-sm transition-all duration-500 hover:scale-105 hover:shadow-2xl mx-auto flex items-center justify-center gap-3',
+                'group relative px-6 py-3 md:px-12 md:py-4.5 backdrop-blur-md rounded-full text-white font-light tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-xs transition-all duration-500 hover:scale-105 hover:shadow-2xl mx-auto flex items-center justify-center gap-2 md:gap-3',
                 themeClasses.bgButton,
                 themeClasses.glow
-              ]" style="min-width: 220px;">
+              ]" style="min-width: 180px md:min-width:220px;">
                 <!-- Button shine effect -->
                 <div class="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <component :is="getIcon" :size="16" class="group-hover:scale-110 group-hover:fill-white transition-all duration-300" />
+                <component :is="getIcon" :size="14" class="group-hover:scale-110 group-hover:fill-white transition-all duration-300" />
                 <span class="whitespace-nowrap">Buka Undangan</span>
                 <!-- Arrow -->
-                <svg class="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
