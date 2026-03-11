@@ -91,25 +91,25 @@ const themeClasses = computed(() => {
         class="fixed inset-0 z-50 flex flex-col text-white text-center px-4 overflow-hidden">
         
         <!-- Mode Selector - Improved Design -->
-        <div class="absolute top-2 md:top-4 left-0 right-0 z-20 flex justify-center">
-          <div class="flex items-center gap-1 md:gap-2 px-2 py-1.5 md:py-2 bg-black/20 backdrop-blur-md rounded-full">
+        <div class="absolute top-2 md:top-4 left-0 right-0 z-20 flex justify-center px-2">
+          <div class="flex items-center gap-1 px-2 py-1.5 md:py-2 bg-black/20 backdrop-blur-md rounded-full">
             <button @click="setMode('romantic')" :class="[
-              'p-2.5 md:p-3 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
+              'p-2 md:p-2.5 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
               selectedMode === 'romantic' ? 'bg-white/25 shadow-lg' : 'bg-white/5 hover:bg-white/15'
             ]" title="Romantic Mode">
-              <Flower2 :size="selectedMode === 'romantic' ? 20 : 18" :class="selectedMode === 'romantic' ? 'text-rose-300 animate-spin-slow' : 'text-white/50'" />
+              <Flower2 :size="selectedMode === 'romantic' ? 18 : 16" :class="selectedMode === 'romantic' ? 'text-rose-300 animate-spin-slow' : 'text-white/50'" />
             </button>
             <button @click="setMode('modern')" :class="[
-              'p-2.5 md:p-3 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
+              'p-2 md:p-2.5 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
               selectedMode === 'modern' ? 'bg-white/25 shadow-lg' : 'bg-white/5 hover:bg-white/15'
             ]" title="Modern Mode">
-              <Sparkles :size="selectedMode === 'modern' ? 20 : 18" :class="selectedMode === 'modern' ? 'text-white animate-pulse' : 'text-white/50'" />
+              <Sparkles :size="selectedMode === 'modern' ? 18 : 16" :class="selectedMode === 'modern' ? 'text-white animate-pulse' : 'text-white/50'" />
             </button>
             <button @click="setMode('golden')" :class="[
-              'p-2.5 md:p-3 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
+              'p-2 md:p-2.5 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
               selectedMode === 'golden' ? 'bg-white/25 shadow-lg' : 'bg-white/5 hover:bg-white/15'
             ]" title="Golden Mode">
-              <Gem :size="selectedMode === 'golden' ? 20 : 18" :class="selectedMode === 'golden' ? 'text-amber-300 animate-pulse' : 'text-white/50'" />
+              <Gem :size="selectedMode === 'golden' ? 18 : 16" :class="selectedMode === 'golden' ? 'text-amber-300 animate-pulse' : 'text-white/50'" />
             </button>
           </div>
         </div>
@@ -174,9 +174,9 @@ const themeClasses = computed(() => {
           </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-16 md:py-20 px-3">
-          <div class="w-full pt-60 md:pt-20 max-w-2xl">
+        <!-- Main Content - Responsive -->
+        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-8 md:py-16 lg:py-20 px-3">
+          <div class="w-full max-w-lg md:max-w-xl">
             
             <!-- Elegant Icon -->
             <Motion v-if="selectedMode !== 'golden'" :initial="{ scale: 0, opacity: 0, rotate: -180 }"
@@ -246,36 +246,36 @@ const themeClasses = computed(() => {
 
             <!-- Venue, Date & Time Info - Enhanced Cards for All Modes -->
             <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
-              :transition="{ delay: 0.55, duration: 0.6 }" class="mb-5 md:mb-7">
-              <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 border border-white/10 shadow-xl">
+              :transition="{ delay: 0.55, duration: 0.6 }" class="mb-4 md:mb-6">
+              <div class="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-6 border border-white/10 shadow-xl">
                 <!-- Date Section -->
-                <div class="flex items-center justify-center gap-2 mb-3" :class="themeClasses.accent">
-                  <Calendar :size="18" class="opacity-80" />
+                <div class="flex items-center justify-center gap-2 mb-2 md:mb-3" :class="themeClasses.accent">
+                  <Calendar :size="16" class="opacity-80" />
                   <span class="text-xs md:text-sm font-medium tracking-wider uppercase">{{ formattedWeddingDate }}</span>
                 </div>
                 
                 <!-- Divider -->
-                <div class="flex items-center justify-center gap-3 mb-3">
-                  <div class="w-8 md:w-12 h-px bg-gradient-to-r from-transparent to-white/30"></div>
-                  <Heart :size="12" class="text-rose-300/60" fill="currentColor" />
-                  <div class="w-8 md:w-12 h-px bg-gradient-to-l from-transparent to-white/30"></div>
+                <div class="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
+                  <div class="w-6 md:w-12 h-px bg-gradient-to-r from-transparent to-white/30"></div>
+                  <Heart :size="10" class="text-rose-300/60" fill="currentColor" />
+                  <div class="w-6 md:w-12 h-px bg-gradient-to-l from-transparent to-white/30"></div>
                 </div>
                 
                 <!-- Venue Section -->
                 <div class="flex flex-col items-center gap-1">
                   <div class="flex items-center gap-2" :class="themeClasses.accent">
-                    <MapPin :size="18" class="opacity-80" />
+                    <MapPin :size="16" class="opacity-80" />
                     <span class="text-sm md:text-base font-medium">{{ COUPLE.location || 'Grand Ballroom, Jakarta' }}</span>
                   </div>
-                  <p class="text-[10px] md:text-xs text-white/50 mt-1">
+                  <p class="text-[9px] md:text-xs text-white/50 mt-0.5 md:mt-1">
                     {{ COUPLE.location || 'Jl. Sudirman No. 1, Jakarta Pusat' }}
                   </p>
                 </div>
                 
                 <!-- Time Badge -->
-                <div class="mt-4 flex justify-center">
-                  <div :class="['inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs', themeClasses.bgButton]">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="mt-3 md:mt-4 flex justify-center">
+                  <div :class="['inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs', themeClasses.bgButton]">
+                    <svg class="w-3 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="font-light">{{ formattedWeddingDate }} WIB</span>
@@ -313,13 +313,6 @@ const themeClasses = computed(() => {
                 </svg>
               </button>
             </Motion>
-
-            <!-- Decorative dots -->
-            <Motion :initial="{ opacity: 0 }" :animate="{ opacity: 1 }"
-              :transition="{ delay: 1, duration: 0.8 }" class="mt-6 md:mt-8 flex justify-center gap-2">
-              <div v-for="i in 5" :key="i" :class="['w-1.5 h-1.5 rounded-full', i === 3 ? 'bg-white/60' : 'bg-white/20']" 
-                :style="{ animationDelay: (i * 0.15) + 's' }"></div>
-            </Motion>
           </div>
         </div>
       </Motion>
@@ -328,6 +321,18 @@ const themeClasses = computed(() => {
 </template>
 
 <style scoped>
+/* Hide scrollbar completely */
+:global(html), :global(body) {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+:global(html)::-webkit-scrollbar,
+:global(body)::-webkit-scrollbar {
+  display: none !important;
+}
+
 @keyframes float-heart {
   0%, 100% {
     transform: translateY(0) scale(1) rotate(0deg);
