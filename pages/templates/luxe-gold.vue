@@ -107,6 +107,55 @@ const formatNumber = (num: number) => num.toString().padStart(2, '0')
 const openLightbox = (src: string) => { selectedImage.value = src; showLightbox.value = true }
 const closeLightbox = () => { showLightbox.value = false; selectedImage.value = '' }
 
+// Gallery Swipe/Carousel
+const currentSlide = ref(0)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const isDragging = ref(false)
+
+const openLightboxAtIndex = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+  showLightbox.value = true
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + images.value.length) % images.value.length
+  selectedImage.value = images.value[currentSlide.value] || ''
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+  selectedImage.value = images.value[index] || ''
+}
+
+const handleTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches?.[0]) return
+  touchStartX.value = e.changedTouches[0].screenX
+  isDragging.value = true
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.changedTouches?.[0]) return
+  touchEndX.value = e.changedTouches[0].screenX
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return
+  const swipeThreshold = 50
+  const diff = touchStartX.value - touchEndX.value
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) nextSlide()
+    else prevSlide()
+  }
+  isDragging.value = false
+}
+
 const copyToClipboard = (text: string, index: number) => {
   navigator.clipboard.writeText(text)
   copiedIndex.value = index
@@ -237,20 +286,68 @@ const isVisible = (id: string) => visibleSections.value.has(id)
       </div>
     </section>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section with Swipe -->
     <section id="gallery" class="py-24 px-6 bg-[#2A2A2A]/50">
       <div class="max-w-6xl mx-auto">
         <div :class="['text-center mb-16 transition-all duration-700', isVisible('gallery') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
           <p class="text-sm tracking-[0.3em] uppercase text-[#D4AF37]/70 mb-4">Kenangan</p>
           <h2 class="text-4xl font-serif text-[#D4AF37]">Gallery</h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <div v-for="(img, index) in images" :key="index" :class="['aspect-square bg-[#2A2A2A] overflow-hidden cursor-pointer group transition-all duration-700 border border-[#D4AF37]/10', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']" :style="{ transitionDelay: index * 0.1 + 's' }" @click="openLightbox(img)">
-            <NuxtImg :src="img" :alt="`Gallery ${index + 1}`" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-[#1A1A1A]/0 group-hover:bg-[#1A1A1A]/50 transition-colors flex items-center justify-center">
-              <ZoomIn class="w-8 h-8 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity" />
+        
+        <!-- Swipe Carousel -->
+        <div 
+          class="relative overflow-hidden rounded-3xl"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        >
+          <div 
+            class="flex transition-transform duration-500 ease-out"
+            :style="{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }"
+          >
+            <div 
+              v-for="(img, index) in images.slice(0, 9)" 
+              :key="index"
+              class="w-1/3 flex-shrink-0 px-2"
+            >
+              <div 
+                :class="['aspect-square rounded-2xl overflow-hidden cursor-pointer group transition-all duration-700 border border-[#D4AF37]/10', isVisible('gallery') ? 'opacity-100 scale-100' : 'opacity-0 scale-90']"
+                @click="openLightboxAtIndex(index)"
+              >
+                <NuxtImg :src="img" :alt="`Gallery ${index + 1}`" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-[#1A1A1A]/0 group-hover:bg-[#1A1A1A]/50 transition-colors flex items-center justify-center">
+                  <ZoomIn class="w-8 h-8 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
             </div>
           </div>
+          
+          <!-- Navigation Arrows -->
+          <button 
+            @click.stop="prevSlide"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#D4AF37]/20 backdrop-blur-md flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all z-10"
+          >
+            <ChevronLeft :size="20" />
+          </button>
+          <button 
+            @click.stop="nextSlide"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#D4AF37]/20 backdrop-blur-md flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all z-10"
+          >
+            <ChevronRight :size="20" />
+          </button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="flex justify-center gap-2 mt-6">
+          <button 
+            v-for="(_, index) in Math.min(images.slice(0, 9).length, 6)" 
+            :key="index"
+            @click="goToSlide(index)"
+            :class="[
+              'w-2 h-2 rounded-full transition-all duration-300',
+              currentSlide === index ? 'w-8 bg-[#D4AF37]' : 'bg-[#D4AF37]/30 hover:bg-[#D4AF37]/50'
+            ]"
+          />
         </div>
       </div>
     </section>
