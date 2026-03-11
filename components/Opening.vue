@@ -86,8 +86,8 @@ const themeClasses = computed(() => {
 <template>
   <main>
     <AnimatePresence>
-      <Motion v-if="!isOpened" key="overlay" :initial="{ opacity: 1 }" :exit="{ opacity: 0, y: -1000 }"
-        :transition="{ duration: 1.2, ease: 'easeInOut' }"
+      <Motion v-if="!isOpened" key="overlay" :initial="{ opacity: 1 }" :exit="{ opacity: 0, scale: 1.1, y: -50 }"
+        :transition="{ duration: 0.6, ease: 'easeInOut' }"
         class="fixed inset-0 z-50 flex flex-col text-white text-center px-4 overflow-hidden">
         
         <!-- Mode Selector - Improved Design -->
@@ -299,7 +299,7 @@ const themeClasses = computed(() => {
             <Motion :initial="{ opacity: 0, y: 25 }" :animate="{ opacity: 1, y: 0 }"
               :transition="{ delay: 0.8, duration: 0.7, type: 'spring' }">
               <button @click="emitOpen" :class="[
-                'group relative px-6 py-3 md:px-12 md:py-4.5 backdrop-blur-md rounded-full text-white font-light tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-xs transition-all duration-500 hover:scale-105 hover:shadow-2xl mx-auto flex items-center justify-center gap-2 md:gap-3',
+                'group relative px-6 py-3 md:px-12 md:py-4.5 backdrop-blur-md rounded-full text-white font-light tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-xs transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 mx-auto flex items-center justify-center gap-2 md:gap-3 cursor-pointer',
                 themeClasses.bgButton,
                 themeClasses.glow
               ]" style="min-width: 180px;">

@@ -1,25 +1,33 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { COUPLE } from '~/composables/useData';
 
-
+const router = useRouter()
 const guestName = ref(COUPLE.guestName);
-const theme = useState<string>('theme', () => 'classic');
-const isOpened = useState<boolean>('isOpened', () => false);
+const isOpened = ref(false);
+
 onMounted(() => {
   const params = new URLSearchParams(globalThis.location.search);
   const to = params.get('to');
   if (to) guestName.value = to;
 });
+
+const emitOpen = () => {
+  isOpened.value = true;
+  // Navigate to elegant template with animation
+  setTimeout(() => {
+    router.push('/templates/elegant');
+  }, 600);
+}
 </script>
 <template>
   <main>
-    <Opening :is-opened="isOpened" :groom="COUPLE.groom"  :bride="COUPLE.bride"  :guest-name="guestName"
-      @open="isOpened = true" />
-
-      <Navbar v-if="isOpened" />
-      <MusicPlayer v-if="isOpened" />
-
+    <Opening 
+      :is-opened="isOpened" 
+      :groom="COUPLE.groom" 
+      :bride="COUPLE.bride" 
+      :guest-name="guestName"
+      @open="emitOpen" />
   </main>
 </template>
 
