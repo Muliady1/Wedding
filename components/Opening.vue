@@ -43,16 +43,7 @@ const formattedWeddingDate = computed(() => {
   })
 })
 
-// Format time
-const formattedWeddingTime = computed(() => {
-  const d = new Date(COUPLE.date)
-  return d.toLocaleTimeString('id-ID', {
-    hour: '2-digit',
-    minute: '2-digit'
-  }) + ' WIB'
-})
 
-// Theme classes based on mode
 const themeClasses = computed(() => {
   switch (selectedMode.value) {
     case 'romantic':

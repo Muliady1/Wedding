@@ -15,9 +15,25 @@ onMounted(() => {
 <template>
   <main>
     <OpeningOverlay :is-opened="isOpened" :groom="COUPLE.groom"  :bride="COUPLE.bride"  :guest-name="guestName"
-      @open="isOpened = true" />
-    <Navbar />
-    <MusicPlayer />
-  
+      @open="isOpened = true" 
+    />
+    <Transition name="fade">
+      <Navbar v-if="isOpened" />
+    </Transition>
+    <Transition name="fade">
+      <MusicPlayer v-if="isOpened" />
+    </Transition>
   </main>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
