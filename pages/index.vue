@@ -15,14 +15,11 @@ onMounted(() => {
 <template>
   <main>
     <Opening :is-opened="isOpened" :groom="COUPLE.groom"  :bride="COUPLE.bride"  :guest-name="guestName"
-      @open="isOpened = true" 
-    />
-    <Transition name="fade">
+      @open="isOpened = true" />
+
       <Navbar v-if="isOpened" />
-    </Transition>
-    <Transition name="fade">
       <MusicPlayer v-if="isOpened" />
-    </Transition>
+
   </main>
 </template>
 

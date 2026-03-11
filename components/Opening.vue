@@ -91,7 +91,7 @@ const themeClasses = computed(() => {
         class="fixed inset-0 z-50 flex flex-col text-white text-center px-4 overflow-hidden">
         
         <!-- Mode Selector - Improved Design -->
-        <div class="absolute top-4 md:top-6 left-0 right-0 z-20 flex justify-center">
+        <div class="absolute top-2 md:top-4 left-0 right-0 z-20 flex justify-center">
           <div class="flex items-center gap-1 md:gap-2 px-2 py-1.5 md:py-2 bg-black/20 backdrop-blur-md rounded-full">
             <button @click="setMode('romantic')" :class="[
               'p-2.5 md:p-3 rounded-full transition-all duration-500 ease-out transform hover:scale-110',
@@ -176,7 +176,7 @@ const themeClasses = computed(() => {
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-16 md:py-20 px-3">
-          <div class="w-full max-w-2xl">
+          <div class="w-full pt-60 md:pt-20 max-w-2xl">
             
             <!-- Elegant Icon -->
             <Motion v-if="selectedMode !== 'golden'" :initial="{ scale: 0, opacity: 0, rotate: -180 }"
@@ -244,20 +244,42 @@ const themeClasses = computed(() => {
               </div>
             </Motion>
 
-            <!-- Location & Date Info - Enhanced Cards -->
+            <!-- Venue, Date & Time Info - Enhanced Cards for All Modes -->
             <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
               :transition="{ delay: 0.55, duration: 0.6 }" class="mb-5 md:mb-7">
-              <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-                <!-- Location -->
-                <div class="flex items-center gap-2" :class="themeClasses.accent">
-                  <MapPin :size="14" class="opacity-70" />
-                  <span class="text-xs md:text-sm font-light tracking-wide">{{ COUPLE.location || 'Grand Ballroom' }}</span>
+              <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 border border-white/10 shadow-xl">
+                <!-- Date Section -->
+                <div class="flex items-center justify-center gap-2 mb-3" :class="themeClasses.accent">
+                  <Calendar :size="18" class="opacity-80" />
+                  <span class="text-xs md:text-sm font-medium tracking-wider uppercase">{{ formattedWeddingDate }}</span>
                 </div>
-                <div v-if="selectedMode !== 'modern'" class="hidden sm:block w-1 h-1 rounded-full bg-white/30"></div>
-                <!-- Date -->
-                <div class="flex items-center gap-2" :class="themeClasses.accent">
-                  <Calendar :size="14" class="opacity-70" />
-                  <span class="text-xs md:text-sm font-light tracking-wide">{{ formattedWeddingDate }}</span>
+                
+                <!-- Divider -->
+                <div class="flex items-center justify-center gap-3 mb-3">
+                  <div class="w-8 md:w-12 h-px bg-gradient-to-r from-transparent to-white/30"></div>
+                  <Heart :size="12" class="text-rose-300/60" fill="currentColor" />
+                  <div class="w-8 md:w-12 h-px bg-gradient-to-l from-transparent to-white/30"></div>
+                </div>
+                
+                <!-- Venue Section -->
+                <div class="flex flex-col items-center gap-1">
+                  <div class="flex items-center gap-2" :class="themeClasses.accent">
+                    <MapPin :size="18" class="opacity-80" />
+                    <span class="text-sm md:text-base font-medium">{{ COUPLE.location || 'Grand Ballroom, Jakarta' }}</span>
+                  </div>
+                  <p class="text-[10px] md:text-xs text-white/50 mt-1">
+                    {{ COUPLE.location || 'Jl. Sudirman No. 1, Jakarta Pusat' }}
+                  </p>
+                </div>
+                
+                <!-- Time Badge -->
+                <div class="mt-4 flex justify-center">
+                  <div :class="['inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs', themeClasses.bgButton]">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="font-light">{{ formattedWeddingDate }} WIB</span>
+                  </div>
                 </div>
               </div>
             </Motion>
@@ -300,12 +322,6 @@ const themeClasses = computed(() => {
             </Motion>
           </div>
         </div>
-
-        <!-- Bottom hint -->
-        <Motion :initial="{ opacity: 0, y: 10 }" :animate="{ opacity: 1, y: 0 }"
-          :transition="{ delay: 1.2, duration: 0.6 }" class="absolute bottom-4 md:bottom-6 left-0 right-0 flex justify-center">
-          <p class="text-[10px] md:text-xs text-white/30 tracking-widest uppercase">Geser ke atas untuk membuka</p>
-        </Motion>
       </Motion>
     </AnimatePresence>
   </main>
