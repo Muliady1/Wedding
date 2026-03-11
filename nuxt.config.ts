@@ -10,12 +10,4 @@ export default defineNuxtConfig({
         ]
       }
     },
-  runtimeConfig: {
-    public: {
-      websiteOwnerWhatsapp: '',
-      websiteOwnerEmail: '',
-      websiteOwnerWebsite: '',
-      websiteOwnerInstagram: '',
-    }
-  }
 })

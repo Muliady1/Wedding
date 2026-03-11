@@ -335,6 +335,8 @@ export const COUPLE = {
 export const WEBSITE_OWNER = {
   whatsapp: "6281234567890",
   website: "https://digitalsolutionsds.vercel.app/",
+  email: "hello@digitalsolutions.com",
+  instagram: "digitalsolutions",
   name: "Digital Solutions",
   description: "Jasa Pembuatan Website Undangan Pernikahan"
 };
