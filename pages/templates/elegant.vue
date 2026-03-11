@@ -167,7 +167,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
+  <div class="min-h-screen text-white">on tarnsasgit add .
+git commit -m "wedding"
+git push -u origin main
     <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <!-- Animated Background -->
@@ -512,20 +514,6 @@ onMounted(() => {
           </Motion>
         </div>
       </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/10">
-      <div class="max-w-4xl mx-auto px-4 text-center">
-        <div class="flex items-center justify-center gap-3 mb-4">
-          <Heart :size="20" class="text-rose-400" />
-          <span class="text-white/60">Terima kasih atas doa restu Anda</span>
-          <Heart :size="20" class="text-rose-400" />
-        </div>
-        <p class="text-white/40 text-sm">
-          &copy; {{ new Date().getFullYear() }} {{ groom }} & {{ bride }}. All Rights Reserved.
-        </p>
-      </div>
-    </footer>
+    </section>    
   </div>
 </template>

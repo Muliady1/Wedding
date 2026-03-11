@@ -36,6 +36,7 @@ const themeComponent = computed(() => {
       :location="COUPLE.location"
       :map-url="COUPLE.mapUrl"
     />
+    <Footer />
   </main>
 </template>
 

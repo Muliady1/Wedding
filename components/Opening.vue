@@ -82,7 +82,7 @@ const themeClasses = computed(() => {
 </script>
 
 <template>
-  <main class="relative min-h-screnn">
+  <main class="relative min-h-screen">
     <AnimatePresence>
       <Motion
       v-if="!isOpened"
@@ -178,7 +178,7 @@ const themeClasses = computed(() => {
         </div>
 
         <!-- Main Content - Responsive -->
-        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-8 md:py-16 lg:py-20 px-3">
+        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-6 sm:py-8 md:py-16 lg:py-20 px-3 sm:px-4">
           <div class="w-full max-w-lg md:max-w-xl">
             
             <!-- Elegant Icon -->
@@ -250,10 +250,10 @@ const themeClasses = computed(() => {
             <!-- Venue, Date & Time Info - Enhanced Cards for All Modes -->
             <Motion :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
               :transition="{ delay: 0.55, duration: 0.6 }" class="mb-4 md:mb-6">
-              <div class="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-6 border border-white/10 shadow-xl">
+              <div class="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/10 shadow-xl">
                 <!-- Date Section -->
                 <div class="flex items-center justify-center gap-2 mb-2 md:mb-3" :class="themeClasses.accent">
-                  <Calendar :size="16" class="opacity-80" />
+                  <Calendar :size="14" class="opacity-80" />
                   <span class="text-xs md:text-sm font-medium tracking-wider uppercase">{{ formattedWeddingDate }}</span>
                 </div>
                 
@@ -266,19 +266,19 @@ const themeClasses = computed(() => {
                 
                 <!-- Venue Section -->
                 <div class="flex flex-col items-center gap-1">
-                  <div class="flex items-center gap-2" :class="themeClasses.accent">
-                    <MapPin :size="16" class="opacity-80" />
+                  <div class="flex items-center gap-1.5 md:gap-2 text-center" :class="themeClasses.accent">
+                    <MapPin :size="14" class="opacity-80 flex-shrink-0" />
                     <span class="text-sm md:text-base font-medium">{{ COUPLE.location || 'Grand Ballroom, Jakarta' }}</span>
                   </div>
-                  <p class="text-[9px] md:text-xs text-white/50 mt-0.5 md:mt-1">
+                  <p class="text-[9px] md:text-xs text-white/50 mt-0.5 md:mt-1 px-2">
                     {{ COUPLE.location || 'Jl. Sudirman No. 1, Jakarta Pusat' }}
                   </p>
                 </div>
                 
                 <!-- Time Badge -->
                 <div class="mt-3 md:mt-4 flex justify-center">
-                  <div :class="['inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs', themeClasses.bgButton]">
-                    <svg class="w-3 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div :class="['inline-flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs', themeClasses.bgButton]">
+                    <svg class="w-3 h-3 md:w-3.5 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="font-light">{{ formattedWeddingDate }} WIB</span>
@@ -289,10 +289,10 @@ const themeClasses = computed(() => {
 
             <!-- Guest Name -->
             <Motion v-if="guestName" :initial="{ opacity: 0, y: 20 }" :animate="{ opacity: 1, y: 0 }"
-              :transition="{ delay: 0.65, duration: 0.6 }" class="mb-4 md:mb-5">
-              <div class="inline-block px-4 py-2 md:px-6 md:py-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-                <p class="text-[9px] md:text-xs tracking-widest uppercase mb-0.5 md:mb-1 text-white/50">Kepada</p>
-                <p :class="['text-base md:text-xl font-serif italic', selectedMode === 'golden' ? 'text-amber-50' : 'text-white/90']">
+              :transition="{ delay: 0.65, duration: 0.6 }" class="mb-4 md:mb-5 px-2">
+              <div class="inline-block w-full px-3 py-2 md:px-6 md:py-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+                <p class="text-[9px] md:text-xs tracking-widest uppercase mb-0.5 md:mb-1 text-white/50 text-center">Kepada</p>
+                <p :class="['text-base md:text-xl font-serif italic text-center', selectedMode === 'golden' ? 'text-amber-50' : 'text-white/90']">
                   {{ guestName }}
                 </p>
               </div>
