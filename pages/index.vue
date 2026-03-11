@@ -14,7 +14,7 @@ onMounted(() => {
 </script>
 <template>
   <main>
-    <OpeningOverlay :is-opened="isOpened" :groom="COUPLE.groom"  :bride="COUPLE.bride"  :guest-name="guestName"
+    <Opening :is-opened="isOpened" :groom="COUPLE.groom"  :bride="COUPLE.bride"  :guest-name="guestName"
       @open="isOpened = true" 
     />
     <Transition name="fade">
