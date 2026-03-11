@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { Send, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, MessageSquare, Calendar, Clock, MapPin, Gift, Images, Sparkles, ChevronLeft, ChevronRight, X, Play, Pause } from 'lucide-vue-next'
+import { Send, Copy, Check, Heart, Smartphone, CreditCard, User, MessageCircle, MessageSquare, Calendar, Clock, MapPin, Gift, Images, Sparkles, ChevronLeft, ChevronRight, X } from 'lucide-vue-next'
 import { Motion, AnimatePresence } from 'motion-v'
 import { stories, galleryImages, COUPLE, eventLocations, accounts, qrCodes } from '~/composables/useData'
 
@@ -114,12 +114,6 @@ const copyQr = (text: string, index: number) => {
   setTimeout(() => copiedQrIndex.value = null, 2000);
 }
 
-const openLightbox = (img: string) => {
-  selectedImage.value = img;
-  currentSlide.value = images.value.indexOf(img);
-  showLightbox.value = true;
-}
-
 const openLightboxAtIndex = (index: number) => {
   currentSlide.value = index;
   selectedImage.value = images.value[index] || '';
@@ -139,15 +133,6 @@ const prevSlide = () => {
 const goToSlide = (index: number) => {
   currentSlide.value = index;
   selectedImage.value = images.value[index] || '';
-}
-
-const toggleAutoPlay = () => {
-  isAutoPlaying.value = !isAutoPlaying.value;
-  if (isAutoPlaying.value) {
-    autoPlayInterval = setInterval(nextSlide, 4000);
-  } else if (autoPlayInterval) {
-    clearInterval(autoPlayInterval);
-  }
 }
 
 // Touch/Swipe handling
@@ -344,7 +329,7 @@ onMounted(() => {
     </section>
 
     <!-- Story Section -->
-    <section id="story" class="py-28 relative overflow-hidden">
+    <section id="story" class="py-10 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rose-500/5 to-transparent"></div>
       <div class="absolute top-0 left-0 w-96 h-96 bg-rose-500/10 rounded-full blur-[100px]"></div>
       <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]"></div>
@@ -381,7 +366,7 @@ onMounted(() => {
     </section>
 
     <!-- Gallery Section - With Swipe/Slide -->
-    <section id="gallery" class="py-28 relative">
+    <section id="gallery" class="py-10 relative">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent"></div>
       <div class="absolute top-0 right-0 w-96 h-96 bg-violet-500/10 rounded-full blur-[100px]"></div>
       <div class="absolute bottom-0 left-0 w-96 h-96 bg-rose-500/10 rounded-full blur-[100px]"></div>
@@ -465,17 +450,6 @@ onMounted(() => {
               ]"
             />
           </div>
-          
-          <!-- Auto Play Toggle -->
-          <div class="flex justify-center mt-4">
-            <button 
-              @click="toggleAutoPlay"
-              class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all text-sm"
-            >
-              <component :is="isAutoPlaying ? Pause : Play" :size="14" />
-              {{ isAutoPlaying ? 'Pause' : 'Auto Play' }}
-            </button>
-          </div>
         </div>
       </div>
     </section>
@@ -539,7 +513,7 @@ onMounted(() => {
     </Teleport>
 
     <!-- Location Section -->
-    <section id="location" class="py-28 relative">
+    <section id="location" class="py-10 relative">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-500/5 to-transparent"></div>
       <div class="absolute top-0 left-0 w-96 h-96 bg-sky-500/10 rounded-full blur-[100px]"></div>
       <div class="absolute bottom-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px]"></div>
@@ -591,7 +565,7 @@ onMounted(() => {
     </section>
 
     <!-- Gift Section -->
-    <section id="gift" class="py-28 relative">
+    <section id="gift" class="py-10 relative">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/5 to-transparent"></div>
       <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px]"></div>
       <div class="absolute bottom-0 left-0 w-96 h-96 bg-rose-500/10 rounded-full blur-[100px]"></div>
@@ -681,7 +655,7 @@ onMounted(() => {
     </section>
 
     <!-- Wishes Section -->
-    <section id="wishes" class="py-28 relative">
+    <section id="wishes" class="py-10 relative">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rose-500/5 to-transparent"></div>
       <div class="absolute top-0 left-0 w-96 h-96 bg-rose-500/10 rounded-full blur-[100px]"></div>
       <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]"></div>

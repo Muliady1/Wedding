@@ -16,8 +16,19 @@ onMounted(() => {
 
 const themeComponent = computed(() => {
   const themes: Record<string, any> = {
+    classic: TemplatesClassic,
     elegant: TemplatesElegant,
-   };
+    'soft-pastel': TemplatesSoftPastel,
+    'modern-geometric': TemplatesModernGeometric,
+    'modern-minimalist': TemplatesModernMinimalist,
+    'romantic-garden': TemplatesRomanticGarden,
+    'tropical-paradise': TemplatesTropicalParadise,
+    'vintage-bohemian': TemplatesVintageBohemian,
+    'rustic-chic': TemplatesRusticChic,
+    'luxe-gold': TemplatesLuxeGold,
+    'fairy-tale': TemplatesFairyTale,
+    'dark-romance': TemplatesDarkRomance
+  };
   return themes[theme.value] || TemplatesElegant;
 });
 
@@ -38,21 +49,14 @@ const handleOpen = () => {
       isOpened ? 'opacity-0 pointer-events-none' : 'opacity-100'
     ]">
       <Opening :is-opened="isOpened" :groom="COUPLE.groom" :bride="COUPLE.bride" :guest-name="guestName"
-         @open="handleOpen"/>
+        @open="handleOpen" />
     </div>
+    <ThemeSwitcher />
     <MusicPlayer />
     <Navbar />
     <Transition name="page-reveal" mode="out-in">
-      <component 
-        :is="themeComponent" 
-        v-if="isOpened"
-        :groom="COUPLE.groom" 
-        :bride="COUPLE.bride" 
-        :date="COUPLE.date"
-        :location="COUPLE.location"
-        :map-url="COUPLE.mapUrl"
-        key="content"
-      />
+      <component :is="themeComponent" v-if="isOpened" :groom="COUPLE.groom" :bride="COUPLE.bride" :date="COUPLE.date"
+        :location="COUPLE.location" :map-url="COUPLE.mapUrl" key="content" />
     </Transition>
     <Transition name="fade-up">
       <Footer v-if="isOpened" />

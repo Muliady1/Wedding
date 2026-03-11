@@ -84,7 +84,7 @@ const themeClasses = computed(() => {
 <template>
   <main>
     <AnimatePresence>
-      <Motion h
+      <Motion
       v-if="!isOpened"
       key="overlay"
       :initial="{ opacity: 1 }"
@@ -178,15 +178,15 @@ const themeClasses = computed(() => {
         </div>
 
         <!-- Main Content - Responsive -->
-        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-16 sm:py-20 md:py-24 lg:py-28 px-3 sm:px-4">
+        <div class="flex-1 flex flex-col items-center justify-center min-h-0 py-10 sm:py-14 md:py-18 px-2 sm:px-3">
           <div class="w-full max-w-lg md:max-w-xl">
             
             <!-- Elegant Icon -->
             <Motion v-if="selectedMode !== 'golden'" :initial="{ scale: 0, opacity: 0, rotate: -180 }"
               :animate="{ scale: 1, opacity: 1, rotate: 0 }" :transition="{ delay: 0.15, duration: 0.8, type: 'spring' }" 
-              class="mb-6 md:mb-8">
+              class="mb-3 md:mb-5">
               <div class="relative inline-block">
-                <component :is="getIcon" :class="['mx-auto', themeClasses.accent]" :size="selectedMode === 'modern' ? 56 : 48" :fill="selectedMode !== 'modern' ? 'currentColor' : 'none'" />
+                <component :is="getIcon" :class="['mx-auto', themeClasses.accent]" :size="selectedMode === 'modern' ? 40 : 36" :fill="selectedMode !== 'modern' ? 'currentColor' : 'none'" />
                 <!-- Subtle glow -->
                 <div class="absolute inset-0 rounded-full blur-xl -z-10 bg-white/10" style="transform: scale(1.5);"></div>
               </div>
@@ -194,8 +194,8 @@ const themeClasses = computed(() => {
 
             <!-- Subtitle -->
             <Motion :initial="{ opacity: 0, y: 25 }" :animate="{ opacity: 1, y: 0 }"
-              :transition="{ delay: 0.25, duration: 0.7 }" class="mb-3 md:mb-4">
-              <p :class="['text-[11px] md:text-sm tracking-[0.35em] md:tracking-[0.5em] uppercase drop-shadow-xl', themeClasses.accent]">
+              :transition="{ delay: 0.25, duration: 0.7 }" class="mb-2 md:mb-3">
+              <p :class="['text-[10px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] uppercase drop-shadow-xl', themeClasses.accent]">
                 Wedding Invitation
               </p>
             </Motion>
@@ -205,26 +205,26 @@ const themeClasses = computed(() => {
               :transition="{ delay: 0.35, duration: 0.7 }" class="mb-4 md:mb-6">
               
               <!-- Golden Mode: Centered inline -->
-              <h1 v-if="selectedMode === 'golden'" class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-relaxed drop-shadow-2xl">
+              <h1 v-if="selectedMode === 'golden'" class="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-relaxed drop-shadow-2xl">
                 <span :class="['inline-block', themeClasses.accent, 'font-light']">{{ groom || 'Anindita' }}</span>
                 <span class="mx-3 md:mx-4 text-amber-200/80">&</span>
                 <span :class="['inline-block', themeClasses.accent, 'font-light']">{{ bride || 'Rizky' }}</span>
               </h1>
 
               <!-- Modern Mode: Clean stacked -->
-              <h1 v-else-if="selectedMode === 'modern'" class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-2xl">
+              <h1 v-else-if="selectedMode === 'modern'" class="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight drop-shadow-2xl">
                 <span class="block font-light tracking-tight">{{ groom || 'Anindita' }}</span>
-                <span :class="['inline-block mx-3 md:mx-4 mt-1', themeClasses.accent, 'text-2xl md:text-3xl']">&</span>
+                <span :class="['inline-block mx-2 md:mx-3 mt-0.5', themeClasses.accent, 'text-lg md:text-xl']">&</span>
                 <span class="block font-light tracking-tight">{{ bride || 'Rizky' }}</span>
               </h1>
 
               <!-- Romantic Mode: Elegant stacked with accent -->
-              <h1 v-else class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-snug drop-shadow-2xl">
+              <h1 v-else class="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-snug drop-shadow-2xl">
                 <span :class="['block font-light', themeClasses.accentLight]">{{ groom || 'Anindita' }}</span>
-                <div class="flex items-center justify-center my-2 md:my-3">
-                  <div class="w-12 md:w-16 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent"></div>
-                  <Heart :size="selectedMode === 'romantic' ? 16 : 14" class="mx-3 md:mx-4 text-rose-300/70" fill="currentColor" />
-                  <div class="w-12 md:w-16 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent"></div>
+                <div class="flex items-center justify-center my-1 md:my-2">
+                  <div class="w-8 md:w-12 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent"></div>
+                  <Heart :size="12" class="mx-2 md:mx-3 text-rose-300/70" fill="currentColor" />
+                  <div class="w-8 md:w-12 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent"></div>
                 </div>
                 <span :class="['block font-light', themeClasses.accentLight]">{{ bride || 'Rizky' }}</span>
               </h1>
